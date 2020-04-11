@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="Zarzard’s Plog21昨天不小心玩了一整天RPG，但也因此领会到了一个此类游戏的一个设计原则，也是让人3秒沉浸进去并被牢牢固定在电脑前的背后原因：人脑的激励机制。 1.不断给你一个一个踮起脚就能触及的小任务，让你有“做完这个就去吃饭”结果却是没完没了地做下去这样的表现；2.每个小任务完成后，都会给予一点小回馈，并且还会让你看到累计一定数量的小任务就能得到更大的奖励。 这个原理可以用在学习">
+<meta name="description" content="Zarzard’s Plog21">
 <meta name="keywords" content="RPG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Plog21">
 <meta property="og:url" content="http://zarzard.com/2020/04/11/Plog21/index.html">
 <meta property="og:site_name" content="Zarzard&#39;s backyard">
-<meta property="og:description" content="Zarzard’s Plog21昨天不小心玩了一整天RPG，但也因此领会到了一个此类游戏的一个设计原则，也是让人3秒沉浸进去并被牢牢固定在电脑前的背后原因：人脑的激励机制。 1.不断给你一个一个踮起脚就能触及的小任务，让你有“做完这个就去吃饭”结果却是没完没了地做下去这样的表现；2.每个小任务完成后，都会给予一点小回馈，并且还会让你看到累计一定数量的小任务就能得到更大的奖励。 这个原理可以用在学习">
+<meta property="og:description" content="Zarzard’s Plog21">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-11T12:43:17.224Z">
+<meta property="og:updated_time" content="2020-04-11T12:43:57.524Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Plog21">
-<meta name="twitter:description" content="Zarzard’s Plog21昨天不小心玩了一整天RPG，但也因此领会到了一个此类游戏的一个设计原则，也是让人3秒沉浸进去并被牢牢固定在电脑前的背后原因：人脑的激励机制。 1.不断给你一个一个踮起脚就能触及的小任务，让你有“做完这个就去吃饭”结果却是没完没了地做下去这样的表现；2.每个小任务完成后，都会给予一点小回馈，并且还会让你看到累计一定数量的小任务就能得到更大的奖励。 这个原理可以用在学习">
+<meta name="twitter:description" content="Zarzard’s Plog21">
 
 
 
@@ -387,7 +387,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  630
+                  631
                 </span>
               
 
@@ -412,7 +412,8 @@
       
 
       
-        <h1 id="Zarzard’s-Plog21"><a href="#Zarzard’s-Plog21" class="headerlink" title="Zarzard’s Plog21"></a>Zarzard’s Plog21</h1><p>昨天不小心玩了一整天RPG，但也因此领会到了一个此类游戏的一个设计原则，也是让人3秒沉浸进去并被牢牢固定在电脑前的背后原因：人脑的激励机制。</p>
+        <h1 id="Zarzard’s-Plog21"><a href="#Zarzard’s-Plog21" class="headerlink" title="Zarzard’s Plog21"></a>Zarzard’s Plog21</h1><a id="more"></a>
+<p>昨天不小心玩了一整天RPG，但也因此领会到了一个此类游戏的一个设计原则，也是让人3秒沉浸进去并被牢牢固定在电脑前的背后原因：人脑的激励机制。</p>
 <p>1.不断给你一个一个踮起脚就能触及的小任务，让你有“做完这个就去吃饭”结果却是没完没了地做下去这样的表现；<br>2.每个小任务完成后，都会给予一点小回馈，并且还会让你看到累计一定数量的小任务就能得到更大的奖励。</p>
 <p>这个原理可以用在学习上。RPG和学习其实都是在爬山，目标都是山顶。但RPG每级台阶都很矮（对应每个小任务很容易完成），且抬头就可以看到歇脚处甚至是山顶（对应触手可及的奖励）；而学习则反之，每个台阶都比较高，整座山荒无人烟，且山顶高耸入云，一眼望不到头，容易使人失去动力。</p>
 <p>所以具体怎么用到学习上，可以适当参照上面的原理制订计划，我懒就不详细说了。这里抛砖引玉，欢迎交流。</p>
@@ -818,6 +819,11 @@ setInterval("createtime()",250);
 
   <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
   <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script src="/js/src/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
   
   <script type="text/javascript">
     var GUEST = ['nick','mail','link'];
@@ -827,13 +833,13 @@ setInterval("createtime()",250);
     });
     new Valine({
         el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: '3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz',
-        appKey: 'iNsrHfUKIlqKSx5sMCG6PS8S',
-        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！',
+        verify: true,
+        notify: true,
+        appId: '3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz',
+        appKey: '5tSP0TC77zwNzgp9q9We0T7o',
+        placeholder: '发一条评论见证当下8！',
         avatar:'mm',
-        guest_info:guest,
+        guest_info:['nick'] ,
         pageSize:'10' || 10,
     });
   </script>

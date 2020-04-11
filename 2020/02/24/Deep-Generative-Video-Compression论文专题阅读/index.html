@@ -828,6 +828,11 @@ setInterval("createtime()",250);
 
   <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
   <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script src="/js/src/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
   
   <script type="text/javascript">
     var GUEST = ['nick','mail','link'];
@@ -837,13 +842,13 @@ setInterval("createtime()",250);
     });
     new Valine({
         el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: '3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz',
-        appKey: 'iNsrHfUKIlqKSx5sMCG6PS8S',
-        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！',
+        verify: true,
+        notify: true,
+        appId: '3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz',
+        appKey: '5tSP0TC77zwNzgp9q9We0T7o',
+        placeholder: '发一条评论见证当下8！',
         avatar:'mm',
-        guest_info:guest,
+        guest_info:['nick'] ,
         pageSize:'10' || 10,
     });
   </script>
