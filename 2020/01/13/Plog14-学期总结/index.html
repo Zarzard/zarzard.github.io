@@ -904,6 +904,12 @@ setInterval("createtime()",250);
         guest_info:['nick'] ,
         pageSize:'10' || 10,
     });
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
   </script>
 
 
@@ -918,7 +924,7 @@ setInterval("createtime()",250);
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+  <script>AV.initialize("3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz", "5tSP0TC77zwNzgp9q9We0T7o");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);
@@ -1068,7 +1074,7 @@ setInterval("createtime()",250);
   
   <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-<script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+<script>AV.initialize("3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz", "5tSP0TC77zwNzgp9q9We0T7o");</script>
 <script>
 function showTime(Counter) {
 	var query = new AV.Query(Counter);
