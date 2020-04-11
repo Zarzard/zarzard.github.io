@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Batch Normalization其动机参数更新后，靠近输出层的层的输出容易出现剧烈变化，然后？ 其做法对全连接层input: u $\rightarrow$ x=Wu+b $\rightarrow$ output: $ \phi(BN(\bf{x}))$  其中 $\bf{u}={u^{(1)},…u^{(m)}}$ 为全连接层的输入（一批包含 m 个样本的东西），W 为权重矩阵，BN 为">
+<meta name="keywords" content="Z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zarzard&#39;s backyard">
+<meta property="og:url" content="http://zarzard.com/2020/04/08/图片/batch_normalization学习笔记/index.html">
+<meta property="og:site_name" content="Zarzard&#39;s backyard">
+<meta property="og:description" content="Batch Normalization其动机参数更新后，靠近输出层的层的输出容易出现剧烈变化，然后？ 其做法对全连接层input: u $\rightarrow$ x=Wu+b $\rightarrow$ output: $ \phi(BN(\bf{x}))$  其中 $\bf{u}={u^{(1)},…u^{(m)}}$ 为全连接层的输入（一批包含 m 个样本的东西），W 为权重矩阵，BN 为">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-04-08T07:40:34.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zarzard&#39;s backyard">
+<meta name="twitter:description" content="Batch Normalization其动机参数更新后，靠近输出层的层的输出容易出现剧烈变化，然后？ 其做法对全连接层input: u $\rightarrow$ x=Wu+b $\rightarrow$ output: $ \phi(BN(\bf{x}))$  其中 $\bf{u}={u^{(1)},…u^{(m)}}$ 为全连接层的输入（一批包含 m 个样本的东西），W 为权重矩阵，BN 为">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zarzard.com/2020/04/08/图片/batch_normalization学习笔记/">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('猜得出来算我输：') !== ''){
+                alert('错啦！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title> | Zarzard's backyard</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zarzard's backyard</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I'm just a tiny walker, wondering in this beautiful world.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zarzard.com/2020/04/08/图片/batch_normalization学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zarzard Wu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zarzard's backyard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T11:05:06+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/08/图片/batch_normalization学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/08/图片/batch_normalization学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/04/08/图片/batch_normalization学习笔记/" class="leancloud_visitors" data-flag-title>
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h1><h2 id="其动机"><a href="#其动机" class="headerlink" title="其动机"></a>其动机</h2><p>参数更新后，靠近输出层的层的输出容易出现剧烈变化，然后？</p>
+<h2 id="其做法"><a href="#其做法" class="headerlink" title="其做法"></a>其做法</h2><h3 id="对全连接层"><a href="#对全连接层" class="headerlink" title="对全连接层"></a>对全连接层</h3><p><code>input: u</code> $\rightarrow$ <code>x=Wu+b</code> $\rightarrow$ output: $ \phi(BN(\bf{x}))$ </p>
+<p>其中 $\bf{u}={u^{(1)},…u^{(m)}}$ 为全连接层的输入（一批包含 m 个样本的东西），W 为权重矩阵，BN 为 batch normalization，$\phi$ 为激活函数.</p>
+<p>这个 BN层，就是如下操作：</p>
+<p><code>input</code>：$\mathcal{B} = {\boldsymbol{x}^{(1)}, \ldots, \boldsymbol{x}^{(m)} }$ </p>
+<p>求均值，方差：</p>
+<p>$$\boldsymbol{\mu}<em>\mathcal{B} \leftarrow \frac{1}{m}\sum</em>{i = 1}^{m} \boldsymbol{x}^{(i)},$$<br>$$\boldsymbol{\sigma}<em>\mathcal{B}^2 \leftarrow \frac{1}{m} \sum</em>{i=1}^{m}(\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_\mathcal{B})^2,$$</p>
+<p>其中平方是 .^2</p>
+<p>接下来对 $\bf{x}^{(i)}$ 标准化：$$\hat{\boldsymbol{x}}^{(i)} \leftarrow \frac{\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_\mathcal{B}}{\sqrt{\boldsymbol{\sigma}_\mathcal{B}^2 + \epsilon}},$$ </p>
+<p>最后是重头戏：引入可以学习的 scale 和 shift 参数 $\boldsymbol{\gamma},\boldsymbol{\beta}$ ，<strong>每个 batch</strong>，在<strong>每次</strong>做 BN 时，对应<strong>一对</strong> $\boldsymbol{\gamma},\boldsymbol{\beta}$ 。它们的<strong>维数</strong>与 $\boldsymbol{x^{(i)}}$ 维数相同。得到输出：</p>
+<p>$${\boldsymbol{y}}^{(i)} \leftarrow \boldsymbol{\gamma} \odot \hat{\boldsymbol{x}}^{(i)} + \boldsymbol{\beta}.$$</p>
+<h3 id="对卷积层"><a href="#对卷积层" class="headerlink" title="对卷积层"></a>对卷积层</h3><p>也是用在激活函数之前。</p>
+<p>如果卷积层输出多个通道，则一个通道对应唯一独立的一对  $\boldsymbol{\gamma},\boldsymbol{\beta}$ 。具体来说，每个通道（这个通道含有这个 batch 的所有样本）先展平了得到 m*h*w 个基本单元（相当于全连接层里的一个 batch），接着用这m*h*w 个的均值和方差做归一化，最后用全连接层的方式做 BN。（所以只需要 channels 这个参数？不需要 height, width?）</p>
+<h2 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h2><p>为什么要进行归一化处理？这对训练神经网络有什么用处？</p>
+<p>神经网络的终极目标是通过样本数据，学习得到大数据的分布。而我们在把一批一批样本 feed 给神经网络时，由于内存限制，这些个 batch 很可能不够大，导致其内数据的分布相互之间差别很大。这样会有什么坏处呢？比如上一个 batch 训练完，参数被调整成了适应其分布的样子，但下一个 batch 又来一个完全不一样的分布，告诉参数们”真实的数据分布是像我这样子才对！”，那势必会让神经网络训练起来很困难，收敛慢是一回事，拟合整体分布拟合得不好才是更糟糕的。所以我们需要让每个 batch 的分布大致相同。</p>
+<p>细化到每个层，比如第三层，如果把第三层看成第一层，那么也会有这个问题。而第三层的输入，实际上是由第二层的输出和两层之间的模型参数两者决定的。如果每次训练完，参数的调整过于剧烈，那么即使第二层输出的分布相似，最终输入第三层的数据的分布也会大不相同。这就回到了上一段的问题。</p>
+<p>综合上面两段，自然会想：如果在每一层的输入之前做归一化，问题不就解决了吗？问题在于：归一化并不能随便做，用得不恰当可能会有副作用。例如，第二层输出的数据的分布在 sigmoid 函数，也就是第三层的激活函数的左右两个比较极端的位置，方差很大，但如果你强行归一化，把方差变成了 1，即把特征的分布拉回到 0 的周围，那么就破坏了第二层传递的一部分信息，使得第二层学到的参数都有点浪费表情了！</p>
+<p>所以 《batch normalization》 这篇论文的关键来了，它<strong>让神经网络自己决定在每一层的输入之前要不要归一化，或者说归一化的程度大小</strong>。换句话说，第二层传递的信息，在输入给第三层时，自己会考虑要不要“破坏”掉一点，以达到对于整个神经网络的训练的更好的效果。怎么做呢？没错，就是那神秘的一步：引入拉伸参数 $\boldsymbol{\gamma},\ $以及偏移参数 $\boldsymbol{\beta}$。</p>
+<p>为了理解这一点，可以看看特殊情况：可学习的拉伸和偏移参数保留了不对$\hat{\boldsymbol{x}}^{(i)}$做批量归一化的可能：此时只需学出$\boldsymbol{\gamma} = \sqrt{\boldsymbol{\sigma}_\mathcal{B}^2 + \epsilon}$和$\boldsymbol{\beta} = \boldsymbol{\mu}_\mathcal{B}$。我们可以对此这样理解：如果批量归一化无益，理论上，学出的模型可以不使用批量归一化。</p>
+<h2 id="其实现"><a href="#其实现" class="headerlink" title="其实现"></a>其实现</h2><p>（当然，在 pytorch 里有现成的包可以用，以下展现的是这个算法具体的实现步骤）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn, optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">".."</span>) </span><br><span class="line"><span class="keyword">import</span> d2lzh_pytorch <span class="keyword">as</span> d2l</span><br><span class="line">device = torch.device(<span class="string">'cuda'</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batch_norm</span><span class="params">(is_training, X, gamma, beta, moving_mean, moving_var, eps, momentum)</span>:</span></span><br><span class="line">    <span class="comment"># 判断当前模式是训练模式还是预测模式</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> is_training:</span><br><span class="line">        <span class="comment"># 如果是在预测模式下，直接使用传入的移动平均所得的均值和方差</span></span><br><span class="line">        X_hat = (X - moving_mean) / torch.sqrt(moving_var + eps)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">assert</span> len(X.shape) <span class="keyword">in</span> (<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">        <span class="keyword">if</span> len(X.shape) == <span class="number">2</span>:</span><br><span class="line">            <span class="comment"># 使用全连接层的情况，计算特征维上的均值和方差</span></span><br><span class="line">            mean = X.mean(dim=<span class="number">0</span>)</span><br><span class="line">            var = ((X - mean) ** <span class="number">2</span>).mean(dim=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 使用二维卷积层的情况，计算通道维上（axis=1）的均值和方差。这里我们需要保持</span></span><br><span class="line">            <span class="comment"># X的形状以便后面可以做广播运算</span></span><br><span class="line">            mean = X.mean(dim=<span class="number">0</span>, keepdim=<span class="literal">True</span>).mean(dim=<span class="number">2</span>, keepdim=<span class="literal">True</span>).mean(dim=<span class="number">3</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">            var = ((X - mean) ** <span class="number">2</span>).mean(dim=<span class="number">0</span>, keepdim=<span class="literal">True</span>).mean(dim=<span class="number">2</span>, keepdim=<span class="literal">True</span>).mean(dim=<span class="number">3</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># 训练模式下用当前的均值和方差做标准化</span></span><br><span class="line">        X_hat = (X - mean) / torch.sqrt(var + eps)</span><br><span class="line">        <span class="comment"># 更新移动平均的均值和方差</span></span><br><span class="line">        moving_mean = momentum * moving_mean + (<span class="number">1.0</span> - momentum) * mean</span><br><span class="line">        moving_var = momentum * moving_var + (<span class="number">1.0</span> - momentum) * var</span><br><span class="line">    Y = gamma * X_hat + beta  <span class="comment"># 拉伸和偏移</span></span><br><span class="line">    <span class="keyword">return</span> Y, moving_mean, moving_var</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BatchNorm</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num_features, num_dims)</span>:</span></span><br><span class="line">        super(BatchNorm, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> num_dims == <span class="number">2</span>:</span><br><span class="line">            shape = (<span class="number">1</span>, num_features)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            shape = (<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 参与求梯度和迭代的拉伸和偏移参数，分别初始化成0和1</span></span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(shape))</span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(shape))</span><br><span class="line">        <span class="comment"># 不参与求梯度和迭代的变量，全在内存上初始化成0</span></span><br><span class="line">        self.moving_mean = torch.zeros(shape)</span><br><span class="line">        self.moving_var = torch.zeros(shape)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="comment"># 如果X不在内存上，将moving_mean和moving_var复制到X所在显存上</span></span><br><span class="line">        <span class="keyword">if</span> self.moving_mean.device != X.device:</span><br><span class="line">            self.moving_mean = self.moving_mean.to(X.device)</span><br><span class="line">            self.moving_var = self.moving_var.to(X.device)</span><br><span class="line">        <span class="comment"># 保存更新过的moving_mean和moving_var, Module实例的traning属性默认为true, 调用.eval()后设成false</span></span><br><span class="line">        Y, self.moving_mean, self.moving_var = batch_norm(self.training, </span><br><span class="line">            X, self.gamma, self.beta, self.moving_mean,</span><br><span class="line">            self.moving_var, eps=<span class="number">1e-5</span>, momentum=<span class="number">0.9</span>)</span><br><span class="line">        <span class="keyword">return</span> Y</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/图片/Plog21/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/08/图片/ResNet学习笔记/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg" alt="Zarzard Wu">
+            
+              <p class="site-author-name" itemprop="name">Zarzard Wu</p>
+              <p class="site-description motion-element" itemprop="description">Zarzard的个人博客，记录一些胡思乱想，做点学习笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">1.</span> <span class="nav-text">Batch Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其动机"><span class="nav-number">1.1.</span> <span class="nav-text">其动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其做法"><span class="nav-number">1.2.</span> <span class="nav-text">其做法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对全连接层"><span class="nav-number">1.2.1.</span> <span class="nav-text">对全连接层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对卷积层"><span class="nav-number">1.2.2.</span> <span class="nav-text">对卷积层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其之所以然"><span class="nav-number">1.3.</span> <span class="nav-text">其之所以然</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其实现"><span class="nav-number">1.4.</span> <span class="nav-text">其实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="http://dn-lbstatics.qbox.me/bususnzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zarzard Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+
+<span id="timeDate">loading...</span><span id="times">loading...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("8/16/2019 12:00:00");//在此处修改建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "<br>"+" Runing "+dnum+" Days "; 
+        document.getElementById("times").innerHTML = hnum + " Hours " + mnum + " Minutes " + snum + " Seconds"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<div align="middle">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278188146'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1278188146%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz',
+        appKey: 'iNsrHfUKIlqKSx5sMCG6PS8S',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"model":null,"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>

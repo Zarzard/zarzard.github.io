@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Matlab,小技巧,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Matlab小函数备忘">
+<meta name="keywords" content="Matlab,小技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matlab小函数">
+<meta property="og:url" content="http://zarzard.com/2019/10/26/matlab小函数/index.html">
+<meta property="og:site_name" content="Zarzard&#39;s backyard">
+<meta property="og:description" content="Matlab小函数备忘">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="d:%5CBlog%5Cblog%5Csource_posts%5C%E5%9B%BE%E7%89%87%5C%E7%9F%A9%E9%98%B5%E5%B9%82%E8%BF%90%E7%AE%97%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="d:%5CBlog%5Cblog%5Csource_posts%5C%E5%9B%BE%E7%89%87%5C%E7%AC%A6%E5%8F%B7%E7%BB%98%E5%9B%BE.png">
+<meta property="og:updated_time" content="2020-01-05T00:57:25.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matlab小函数">
+<meta name="twitter:description" content="Matlab小函数备忘">
+<meta name="twitter:image" content="d:%5CBlog%5Cblog%5Csource_posts%5C%E5%9B%BE%E7%89%87%5C%E7%9F%A9%E9%98%B5%E5%B9%82%E8%BF%90%E7%AE%97%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%87%BD%E6%95%B0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zarzard.com/2019/10/26/matlab小函数/">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('猜得出来算我输：') !== ''){
+                alert('错啦！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title>matlab小函数 | Zarzard's backyard</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zarzard's backyard</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I'm just a tiny walker, wondering in this beautiful world.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zarzard.com/2019/10/26/matlab小函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zarzard Wu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zarzard's backyard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">matlab小函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-26T16:03:48+08:00">
+                2019-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/数学/Matlab/" itemprop="url" rel="index">
+                    <span itemprop="name">Matlab</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/26/matlab小函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/26/matlab小函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/10/26/matlab小函数/" class="leancloud_visitors" data-flag-title="matlab小函数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Matlab小函数备忘"><a href="#Matlab小函数备忘" class="headerlink" title="Matlab小函数备忘"></a>Matlab小函数备忘</h1><a id="more"></a>
+
+<p>(记得按字母序索引)</p>
+<h2 id="矩阵向量化操作"><a href="#矩阵向量化操作" class="headerlink" title="矩阵向量化操作"></a>矩阵向量化操作</h2><h3 id="A"><a href="#A" class="headerlink" title="A(:)"></a>A(:)</h3><p>拉成一个向量 ($a_{11},a_{21},…$)，注意先列后行</p>
+<h3 id="repmat"><a href="#repmat" class="headerlink" title="repmat"></a>repmat</h3><ul>
+<li>用途：创建由小型矩阵重复组合成的矩阵，比如各行向量相同的矩阵</li>
+<li>例子</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = <span class="built_in">repmat</span>(<span class="number">1</span>:<span class="number">5</span>, <span class="number">5</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行结果: </li>
+<li>1    2    3    4    5<br>1    2    3    4    5<br>1    2    3    4    5<br>1    2    3    4    5<br>1    2    3    4    5</li>
+</ul>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
+<li><p>用途：把满足find条件的下标揪出来.  当返回值只有一个时返回全下标，两个时则返回下标对 . </p>
+<p>注意这里的全下标是指先数列再数行，如在3*3矩阵中，$a_{13}$的全下标为3，$a_{31}$的全下标为7.</p>
+</li>
+<li><p>例子</p>
+</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A = [<span class="number">1</span>,<span class="number">-3</span>,<span class="number">-4</span>;<span class="number">4</span>,<span class="number">3</span>,<span class="number">-9</span>];</span><br><span class="line">B = <span class="built_in">find</span>(A &gt; <span class="number">0</span>);<span class="comment">%揪出正数</span></span><br><span class="line">C = <span class="built_in">find</span>(<span class="built_in">mod</span>(A, <span class="number">2</span>)==<span class="number">0</span>);<span class="comment">%揪出偶数</span></span><br><span class="line">[r,c] = <span class="built_in">find</span>(A &gt; <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<p>A = </p>
+<p>1    -3    -4<br>4    3    -9</p>
+<p>B = </p>
+<p>1<br>2<br>4</p>
+<p>C = </p>
+<p>2<br>5</p>
+<p>r = </p>
+<p>1<br>2<br>2</p>
+<p>c = </p>
+<p>1<br>1<br>2</p>
+<p>（即（1，1），（2，1），（2，2）元素为所找元素）</p>
+<h3 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h3><ul>
+<li><p>用途：把给定矩阵（通常是向量）按自己需要的方式（具体指行列维数）重新塑造成矩阵 . </p>
+</li>
+<li><p>例子</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = <span class="built_in">reshape</span>(<span class="number">1</span>:<span class="number">10</span>,<span class="number">2</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p>A = 1     3     5     7     9</p>
+<pre><code>2     4     6     8    10</code></pre></li>
+</ul>
+<h3 id="inv"><a href="#inv" class="headerlink" title="inv"></a>inv</h3><ul>
+<li>用途：矩阵求逆 . </li>
+<li>注意：不可逆矩阵用inv时会显示inf矩阵</li>
+</ul>
+<h3 id="randn"><a href="#randn" class="headerlink" title="randn"></a>randn</h3><ul>
+<li><p>用途：生成正态分布随机矩阵</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = <span class="built_in">randn</span>(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+
+<p>A = 0.5377    0.8622   -0.4336    2.7694</p>
+<pre><code> 1.8339    0.3188    0.3426   -1.3499
+-2.2588   -1.3077    3.5784    3.0349</code></pre></li>
+</ul>
+<h3 id="rand"><a href="#rand" class="headerlink" title="rand"></a>rand</h3><ul>
+<li><p>用途：生成 [0, 1] 均匀分布的矩阵</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = <span class="built_in">rand</span>(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+
+<p>A= 0.9572    0.1419    0.7922    0.0357</p>
+<pre><code>0.4854    0.4218    0.9595    0.8491
+0.8003    0.9157    0.6557    0.9340</code></pre></li>
+</ul>
+<h3 id="randi"><a href="#randi" class="headerlink" title="randi"></a>randi</h3><ul>
+<li><p>用途：rand integer，即生成指定区间的整数的均匀分布的随机矩阵</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = randi([<span class="number">0</span>,<span class="number">3</span>], <span class="number">3</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>A = 2     1     2</p>
+<pre><code>3     2     0
+2     0     1</code></pre></li>
+</ul>
+<h3 id="对矩阵元素排序"><a href="#对矩阵元素排序" class="headerlink" title="对矩阵元素排序"></a>对矩阵元素排序</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A = [<span class="number">5</span>,<span class="number">1</span>,<span class="number">7</span>;<span class="number">2</span>,<span class="number">8</span>,<span class="number">6</span>;<span class="number">9</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">A1 = <span class="built_in">sort</span>(A); <span class="comment">%列升序</span></span><br><span class="line">A2 = <span class="built_in">sort</span>(A,<span class="string">'descend'</span>) <span class="comment">%列降序</span></span><br><span class="line">A3 = <span class="built_in">sort</span>(A,<span class="number">2</span>) <span class="comment">%行升序</span></span><br><span class="line">A4 = <span class="built_in">reshape</span>(<span class="built_in">sort</span>(A(:)),<span class="number">3</span>,<span class="number">3</span>); <span class="comment">%全部元素排序</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="矩阵幂运算与矩阵函数"><a href="#矩阵幂运算与矩阵函数" class="headerlink" title="矩阵幂运算与矩阵函数"></a>矩阵幂运算与矩阵函数</h3><p><img src="D:%5CBlog%5Cblog%5Csource_posts%5C%E5%9B%BE%E7%89%87%5C%E7%9F%A9%E9%98%B5%E5%B9%82%E8%BF%90%E7%AE%97%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%87%BD%E6%95%B0.png" alt="矩阵幂运算与矩阵函数"></p>
+<h3 id="胞元数组"><a href="#胞元数组" class="headerlink" title="胞元数组"></a>胞元数组</h3><p>内容援引：a{k}=5, b{k}=’r’</p>
+<p>援引：显示胞元类型，a(k)=double,   b(k)=string</p>
+<h2 id="符号矩阵分析"><a href="#符号矩阵分析" class="headerlink" title="符号矩阵分析"></a>符号矩阵分析</h2><h3 id="A-’-转置-与A’-共轭转置"><a href="#A-’-转置-与A’-共轭转置" class="headerlink" title="A.’(转置)与A’(共轭转置)"></a>A.’(转置)与A’(共轭转置)</h3><h3 id="共轭矩阵"><a href="#共轭矩阵" class="headerlink" title="共轭矩阵"></a>共轭矩阵</h3><p>conj(A)</p>
+<h3 id="det-A"><a href="#det-A" class="headerlink" title="det(A)"></a>det(A)</h3><p>求行列式</p>
+<h3 id="diag-A"><a href="#diag-A" class="headerlink" title="diag(A)"></a>diag(A)</h3><ul>
+<li>当A为向量，则生成矩阵 $diag(a_1,\dots a_n)$；</li>
+<li>当A为矩阵，则提取其对角元构成向量。</li>
+</ul>
+<h3 id="expm-A"><a href="#expm-A" class="headerlink" title="expm(A)"></a>expm(A)</h3><p>计算A的指数矩阵（将其对角化后取指数再复原）</p>
+<h3 id="A的最大维度大小（若A为向量，则返回长度）"><a href="#A的最大维度大小（若A为向量，则返回长度）" class="headerlink" title="A的最大维度大小（若A为向量，则返回长度）"></a>A的最大维度大小（若A为向量，则返回长度）</h3><p>length(A)</p>
+<h3 id="ndims-A"><a href="#ndims-A" class="headerlink" title="ndims(A)"></a>ndims(A)</h3><p>返回A的维数</p>
+<h3 id="A所含元素总数"><a href="#A所含元素总数" class="headerlink" title="A所含元素总数"></a>A所含元素总数</h3><p>numel(A)</p>
+<h3 id="每一维大小（行-列）"><a href="#每一维大小（行-列）" class="headerlink" title="每一维大小（行*列）"></a>每一维大小（行*列）</h3><p>size(A)</p>
+<h3 id="rank-A"><a href="#rank-A" class="headerlink" title="rank(A)"></a>rank(A)</h3><p>计算A的秩</p>
+<h3 id="化为下三角矩阵"><a href="#化为下三角矩阵" class="headerlink" title="化为下三角矩阵"></a>化为下三角矩阵</h3><p>tril(A)</p>
+<h3 id="V-D-eig-A"><a href="#V-D-eig-A" class="headerlink" title="[V, D] = eig(A)"></a>[V, D] = eig(A)</h3><p>返回特征值，特征向量  （默认显示所有特征值和特征向量，特征值的顺序是乱的）</p>
+<h3 id="eigs-A"><a href="#eigs-A" class="headerlink" title="eigs(A)"></a>eigs(A)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rng default;</span><br><span class="line">A = <span class="built_in">rand</span>(<span class="number">4</span>);</span><br><span class="line">[~,D2] = eigs(A,<span class="number">3</span>,<span class="string">'lm'</span>); <span class="comment">%绝对值最大的3个特征值</span></span><br><span class="line">[~,D3] = eigs(A,<span class="number">3</span>,<span class="string">'sm'</span>); <span class="comment">%绝对值最小的3个特征值</span></span><br><span class="line">[~,D4] = eigs(A,<span class="number">3</span>,<span class="string">'lr'</span>); <span class="comment">%实部最大的3个特征值</span></span><br><span class="line">[~,D4] = eigs(A,<span class="number">3</span>,<span class="string">'sr'</span>); <span class="comment">%实部最小的3个特征值</span></span><br><span class="line">[~,D4] = eigs(A,<span class="number">3</span>,<span class="string">'li'</span>); <span class="comment">%虚部最大的3个特征值</span></span><br><span class="line">[~,D4] = eigs(A,<span class="number">3</span>,<span class="string">'si'</span>); <span class="comment">%虚部最小的3个特征值</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="poly-A"><a href="#poly-A" class="headerlink" title="poly(A)"></a>poly(A)</h3><p>返回方阵 A 的特征多项式！</p>
+<h3 id="V-J-jordan-A"><a href="#V-J-jordan-A" class="headerlink" title="[V, J] = jordan(A)"></a>[V, J] = jordan(A)</h3><p>返回特征值，jordan标准形（等式左边为一个返回值时，返回前面那一个，即特征值）</p>
+<p>满足 $V^{-1}AV=J$</p>
+<h3 id="U-S-V-svd-A"><a href="#U-S-V-svd-A" class="headerlink" title="[U, S, V] = svd(A)"></a>[U, S, V] = svd(A)</h3><p>奇异值分解，$S=U^*AV$</p>
+<h3 id="L-U-lu-A"><a href="#L-U-lu-A" class="headerlink" title="[L, U] = lu(A)"></a>[L, U] = lu(A)</h3><p>LU分解</p>
+<h3 id="Q-R-qr-A"><a href="#Q-R-qr-A" class="headerlink" title="[Q, R] = qr(A)"></a>[Q, R] = qr(A)</h3><p>QR分解</p>
+<h3 id="求雅可比矩阵"><a href="#求雅可比矩阵" class="headerlink" title="求雅可比矩阵"></a>求雅可比矩阵</h3><p>jacobian(f, v)  求函数（向量） f 关于变量（向量）v 的雅可比矩阵 .</p>
+<p><strong>注意！这里的 f, v 一般不是一个变量，而是变量向量，</strong>示例如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">syms x y z</span><br><span class="line">jacobian([x*y*z, y^<span class="number">2</span>, x + z], [x, y, z])</span><br></pre></td></tr></table></figure>
+
+<h3 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h3><h4 id="生成n阶单位稀疏矩阵"><a href="#生成n阶单位稀疏矩阵" class="headerlink" title="生成n阶单位稀疏矩阵"></a>生成n阶单位稀疏矩阵</h4><p>speye(n)</p>
+<h4 id="基于三元组表示法将大矩阵转化为稀疏矩阵"><a href="#基于三元组表示法将大矩阵转化为稀疏矩阵" class="headerlink" title="基于三元组表示法将大矩阵转化为稀疏矩阵"></a>基于三元组表示法将大矩阵转化为稀疏矩阵</h4><p>B=sparse(A)</p>
+<h3 id="翻转矩阵"><a href="#翻转矩阵" class="headerlink" title="翻转矩阵"></a>翻转矩阵</h3><h4 id="上下翻转-以中间行为镜子，上下对应的行交换位置"><a href="#上下翻转-以中间行为镜子，上下对应的行交换位置" class="headerlink" title="上下翻转(以中间行为镜子，上下对应的行交换位置)"></a>上下翻转(以中间行为镜子，上下对应的行交换位置)</h4><p>flipud(A)  （即flip up down）</p>
+<h4 id="左右翻转-以中间列为镜子，左右对应的列交换位置"><a href="#左右翻转-以中间列为镜子，左右对应的列交换位置" class="headerlink" title="左右翻转(以中间列为镜子，左右对应的列交换位置)"></a>左右翻转(以中间列为镜子，左右对应的列交换位置)</h4><p>fliplr(A) （即flip left right）</p>
+<h4 id="逆时针旋转-90-o-的整数倍"><a href="#逆时针旋转-90-o-的整数倍" class="headerlink" title="逆时针旋转 $90^o$的整数倍"></a>逆时针旋转 $90^o$的整数倍</h4><p>rot(A, 2) 即旋转两个90°</p>
+<h2 id="方程（组）符号解"><a href="#方程（组）符号解" class="headerlink" title="方程（组）符号解"></a>方程（组）符号解</h2><h3 id="线性方程组可直接A-b"><a href="#线性方程组可直接A-b" class="headerlink" title="线性方程组可直接A\b"></a>线性方程组可直接A\b</h3><p>解线性方程组 AX=b</p>
+<h3 id="一般方程组：solve"><a href="#一般方程组：solve" class="headerlink" title="一般方程组：solve"></a>一般方程组：solve</h3><p>solve(eqn_1,…eqn_k, x, y)</p>
+<p>前面是符号表达式的方程（若为仅为表达式则默认等于解Eqn=0），后面是希望解出来的变量</p>
+<p>代码示例：</p>
+<p>解方程 $x^2+y^2=1,xy=2$</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">syms x y;<span class="comment">%需要定义符号变量</span></span><br><span class="line">eqn1 = x^<span class="number">2</span>+y^<span class="number">2</span>==<span class="number">1</span>;</span><br><span class="line">eqn2 = x*y==<span class="number">2</span>;</span><br><span class="line">[x,y] = solve(eqn1,eqn2,x,y);</span><br></pre></td></tr></table></figure>
+
+<p>两种调用方式：</p>
+<ul>
+<li>solve(f == 1, x)</li>
+<li>solve(f - 1, x)</li>
+</ul>
+<h3 id="多项式求根"><a href="#多项式求根" class="headerlink" title="多项式求根"></a>多项式求根</h3><p>求 $x^3+4x+5=0$ 的根：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line">R = roots(p);</span><br><span class="line"><span class="comment">%若需要求实根</span></span><br><span class="line">syms x <span class="built_in">real</span></span><br><span class="line">f = x^<span class="number">3</span>+<span class="number">4</span>*x+<span class="number">5</span>;</span><br><span class="line">R1 = solve(f);</span><br><span class="line"><span class="comment">%也可以</span></span><br><span class="line">R_real = R(<span class="built_in">imag</span>(R==<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><h3 id="逐点绘图"><a href="#逐点绘图" class="headerlink" title="逐点绘图"></a>逐点绘图</h3><h4 id="meshgrid"><a href="#meshgrid" class="headerlink" title="meshgrid"></a>meshgrid</h4><ul>
+<li><p>用途：生成一组配对的（x, y）点，供绘图采样用. （也可以生成三维点）</p>
+<p>相当于x轴方向划几条线，y轴方向画几条线，以交点为采样点</p>
+</li>
+<li><p>例子：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[X,Y] = <span class="built_in">meshgrid</span>(<span class="number">1</span>:<span class="number">3</span>,<span class="number">10</span>:<span class="number">15</span>);</span><br></pre></td></tr></table></figure>
+
+<p>X = </p>
+<p>1    2    3<br>1    2    3<br>1    2    3<br>1    2    3<br>1    2    3<br>1    2    3</p>
+<p>Y = </p>
+<p>10    10    10<br>11    11    11<br>12    12    12<br>13    13    13<br>14    14    14<br>15    15    15</p>
+</li>
+</ul>
+<h4 id="plot"><a href="#plot" class="headerlink" title="plot"></a>plot</h4><h3 id="符号绘图"><a href="#符号绘图" class="headerlink" title="符号绘图"></a>符号绘图</h3><h3 id><a href="#" class="headerlink" title></a><img src="D:%5CBlog%5Cblog%5Csource_posts%5C%E5%9B%BE%E7%89%87%5C%E7%AC%A6%E5%8F%B7%E7%BB%98%E5%9B%BE.png" alt="符号绘图"></h3><ul>
+<li>各种例子详见第四课课件</li>
+<li>ez 系列可以字符串绘图也可以符号表达式绘图；f 系列不支持字符串，只能符号表达式绘图。</li>
+<li>二维平面（符号）绘图：ezplot, fplot, ezpolar</li>
+<li>三维曲线（符号）绘图：ezplot3</li>
+<li>空间曲面（符号）绘图：ezsurf(c), ezmesh(c), fsurf(c)。 加 ‘c’ 表示底面加等位线</li>
+<li>fplot VS ezplot :  fplot无bug；ezplot 可能有 bug。但是后者有自动title,  坐标范围会自动调整，前者默认[-5,5]。</li>
+<li>ezplot(y)</li>
+<li>ezplot(f(x,y), [a, b], [c, d])       %隐函数 $f(x,y)=0$ </li>
+<li>ezplot(x(t), y(t) , [a, b])</li>
+<li>ezmesh , ezsurf, fsurf 大致相同，且都画不了隐函数</li>
+<li>ezmesh(z(x, y), [a, b, c, d])</li>
+<li>ezmesh(z(x, y), [a, b]) 注意是 $x,y\in[a,b]$</li>
+<li>ezmesh(x(s, t), y(s, t), z(s, t))   </li>
+<li>plot3(x(t), y(t), z(t), ‘b-‘)</li>
+</ul>
+<h2 id="数值微分"><a href="#数值微分" class="headerlink" title="数值微分"></a>数值微分</h2><h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><ul>
+<li><p>输入：一个 n 维列向量（即函数值的n个采样点）</p>
+</li>
+<li><p>输出：一个 n-1 维列向量（由于使用向前差分，所以得到的差值点的列向量中，少了最后那个点的导数）</p>
+</li>
+<li><p>原理：向前差分。即 diff(y) 等价于 y(2:end) - y(1:end-1)</p>
+</li>
+<li><p>例子 </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = <span class="built_in">pi</span>/<span class="number">100</span>; <span class="comment">%选用的步长最好整除区间长度，否则最后那个点有点尴尬</span></span><br><span class="line">x = <span class="number">0</span>:d:<span class="built_in">pi</span>;</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">dx = diff(y);</span><br><span class="line">dydx = dx/d; <span class="comment">%得到导数值列向量</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="gradient"><a href="#gradient" class="headerlink" title="gradient"></a>gradient</h3><ul>
+<li><p>输入：与 diff 完全一样</p>
+</li>
+<li><p>输出：一个 n 维列向量（第一个点用向前差分，最后一个用向后差分，其余点用中心差分）</p>
+</li>
+<li><p>原理：中心差分。gradient(y) 等价于 $\frac{ y(3:end) - y(1:end-2)}{2}$</p>
+</li>
+<li><p>例子 </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = <span class="built_in">pi</span>/<span class="number">100</span>; <span class="comment">%选用的步长最好整除区间长度，否则最后那个点有点尴尬</span></span><br><span class="line">x = <span class="number">0</span>:d:<span class="built_in">pi</span>;</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">dx = gradient(y);</span><br><span class="line">dydx = dx/d; <span class="comment">%得到导数值列向量</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="符号微分"><a href="#符号微分" class="headerlink" title="符号微分"></a>符号微分</h2><h3 id="diff-1"><a href="#diff-1" class="headerlink" title="diff"></a>diff</h3><p>diff(f, v, n) 计算 f 关于 v 的n阶导数. </p>
+<h2 id="符号极限"><a href="#符号极限" class="headerlink" title="符号极限"></a>符号极限</h2><p>limit(符号表达式，极限变量，极限值，’left’)  : 左极限</p>
+<h2 id="数值求和"><a href="#数值求和" class="headerlink" title="数值求和"></a>数值求和</h2><h3 id="sum"><a href="#sum" class="headerlink" title="sum"></a>sum</h3><ul>
+<li>输入：矩阵或行（列）向量</li>
+<li>输出：若输入为行（列）向量，则输出为向量元素之和；若输入为矩阵，则输出为各列求和得到的的行向量（sum(A, 1)），或各行求和得到的的列向量（sum(A, 2)）</li>
+</ul>
+<h2 id="符号求和"><a href="#符号求和" class="headerlink" title="符号求和"></a>符号求和</h2><h3 id="symsum"><a href="#symsum" class="headerlink" title="symsum"></a>symsum</h3><ul>
+<li><p>symsum(符号表达式（求和通项），求和变量，下界，上界)</p>
+</li>
+<li><p>代码示例：</p>
+<p>计算 $\Sigma_{k=0}^{n} a^kb^{n-k}$</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">syms a b n k;</span><br><span class="line">x = a^n;</span><br><span class="line">y = b^n;</span><br><span class="line">s = symsum(subs(x,n,k)*subs(y,n,n-k),k,<span class="number">0</span>,n);<span class="comment">%经常要结合subs使用</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="数值积分"><a href="#数值积分" class="headerlink" title="数值积分"></a>数值积分</h2><p>常用方法及适用场景：</p>
+<ul>
+<li>梯形公式：</li>
+<li>辛普森公式：</li>
+<li>蒙特卡洛法：高维积分（概率算法，精度较低，但复杂度低）</li>
+<li></li>
+</ul>
+<h3 id="trapz"><a href="#trapz" class="headerlink" title="trapz"></a>trapz</h3><ul>
+<li><p>输入：trapz(y) ，y 是函数值采样点的行（列）向量；trapz(x, y)，多加的 x 是对应 y 的自变量采样点的向量</p>
+</li>
+<li><p>输出：前者输出$\Sigma[\ f(x_i)+f(x_{i+1})\ ]$的结果（第一个和最后一个只加了一次）；后者直接输出积分结果</p>
+</li>
+<li><p>原理：梯形积分</p>
+</li>
+<li><p>代码示例：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = <span class="built_in">pi</span>/<span class="number">1e5</span>; </span><br><span class="line">t = <span class="number">0</span>:d:<span class="built_in">pi</span>; <span class="comment">%1e5+1个采样点</span></span><br><span class="line">yt = t./<span class="built_in">sin</span>(t).^<span class="number">3</span>;</span><br><span class="line">yt_int = trapz(t,y); <span class="comment">% 或者trapz(y)*d</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="integral"><a href="#integral" class="headerlink" title="integral"></a>integral</h3><p>integral (fun, xmin, xmax)</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fx=@(x)<span class="built_in">exp</span>(-<span class="built_in">abs</span>(x)).*<span class="built_in">abs</span>(<span class="built_in">sin</span>(x));</span><br><span class="line">a1=integral(f,<span class="number">-5.</span>*<span class="built_in">pi</span>,<span class="number">10.</span>*<span class="built_in">pi</span>,<span class="string">'RelTol'</span>,<span class="number">1e-6</span>,<span class="string">'AbsTol'</span>,<span class="number">1e-9</span>);<span class="comment">%相对误差为默认的10^(-6)</span></span><br><span class="line"></span><br><span class="line">a2=integral(f,<span class="number">-5.</span>*<span class="built_in">pi</span>,<span class="number">10.</span>*<span class="built_in">pi</span>,<span class="string">'RelTol'</span>,<span class="number">1e-8</span>,<span class="string">'AbsTol'</span>,<span class="number">1e-9</span>);<span class="comment">%相对误差为10^(-8)</span></span><br><span class="line"></span><br><span class="line">a3=integral(f,<span class="number">-5.</span>*<span class="built_in">pi</span>,<span class="number">10.</span>*<span class="built_in">pi</span>,<span class="string">'RelTol'</span>,<span class="number">1e-10</span>,<span class="string">'AbsTol'</span>,<span class="number">1e-9</span>);<span class="comment">%相对误差为10^(-10)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>输入：匿名函数句柄，积分下限及上限（支持广义积分），（可选）相对误差控制，绝对误差控制</li>
+<li>输出：数值积分值</li>
+<li>原理：商业机密，不可见</li>
+</ul>
+<h2 id="数值微分方程（差分方程）"><a href="#数值微分方程（差分方程）" class="headerlink" title="数值微分方程（差分方程）"></a>数值微分方程（差分方程）</h2><h2 id="符号微分方程"><a href="#符号微分方程" class="headerlink" title="符号微分方程"></a>符号微分方程</h2><h3 id="dsolve"><a href="#dsolve" class="headerlink" title="dsolve"></a>dsolve</h3><p>计算定解问题 $xy^{‘’}-3y’=x^2,\ y(1)=y(5)=0\ .$</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">syms y(x)</span><br><span class="line">eqn = diff(y,x,<span class="number">2</span>)*x<span class="number">-3</span>*diff(y,x)==x^<span class="number">2</span>;</span><br><span class="line">cond = [y(<span class="number">1</span>)==<span class="number">0</span>,y(<span class="number">5</span>)==<span class="number">0</span>];</span><br><span class="line">solu = dsolve(eqn,cond)</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中，eqn 也可以是一个方程组 [eq1, eq2, …] </p>
+<h2 id="三大变换"><a href="#三大变换" class="headerlink" title="三大变换"></a>三大变换</h2><h3 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h3><ul>
+<li>fourier(f(t), t, s)</li>
+<li>ifourier(F(s), s, t)</li>
+</ul>
+<h3 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h3><p>用法与傅里叶变换一致</p>
+<h3 id="Z变换"><a href="#Z变换" class="headerlink" title="Z变换"></a>Z变换</h3><ul>
+<li><p>Z变换定义：$F(z)=\Sigma_{n=0}^{\infin}f(n)z^{-n}$</p>
+</li>
+<li><p>Z变换的逆变换定义：$f(z)=\int_\Gamma F(z)z^{n-1}dz$</p>
+</li>
+<li><p>意义：描述了离散序列 f(n) 的复频率域信息</p>
+</li>
+<li><p>用途：可以将差分方程转化为代数方程（对应于傅里叶，拉普拉斯变换将微分方程转化为代数方程）</p>
+</li>
+<li><p>代码示例：（Z变换求离散卷积）</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">syms a b n k w z</span><br><span class="line">assume(a~=b);assumeAlso(a~=<span class="number">0</span>);assumeAlso(b~=<span class="number">0</span>);</span><br><span class="line"><span class="comment">%a 与 与 b 不为 0 的显示更加简练（其实 a 或 或 b 为 为 0 也应该对的，这是 MATLAB 处理不到位）</span></span><br><span class="line">X=ztrans(a^k,k,z);</span><br><span class="line">H=ztrans(b^k,k,z);</span><br><span class="line">w=iztrans(H*X,z,k);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="Taylor展开"><a href="#Taylor展开" class="headerlink" title="Taylor展开"></a>Taylor展开</h2><p>taylor( f ) ：返回 f 在 0 点的 5 阶麦克劳林展开。</p>
+<p>taylor( f, x, a, ‘Order’, 10)：返回 f 在 x = a 的 9 阶 Taylor 展开 。</p>
+<p><strong>注意！需要先定义符号变量 syms</strong> </p>
+<h2 id="函数极值"><a href="#函数极值" class="headerlink" title="函数极值"></a>函数极值</h2><h3 id="fminbnd"><a href="#fminbnd" class="headerlink" title="fminbnd"></a>fminbnd</h3><p>[x, fval, exitflag] = fminbnd(fun, x1, x2)</p>
+<p>功能：求<strong>一元函数</strong> fun 在区间[x1, x2] 内的极小值</p>
+<p>参数：x 为极小值点；fval为极小值；exitflag&gt;0 为找到极小值标志</p>
+<h3 id="fminsearch"><a href="#fminsearch" class="headerlink" title="fminsearch"></a>fminsearch</h3><p>[x, fval, exitflag]=fminsearch(fun, x0)</p>
+<p>功能：求<strong>多元函数</strong>从 x0 出发的局部极小值</p>
+<p><strong>注意！</strong>多元函数的输入要用向量 x(1), x(2) 而不是 x, y，如以下代码：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ff=@(x)(<span class="number">100</span>*(x(<span class="number">2</span>)-x(<span class="number">1</span>)^<span class="number">2</span>)^<span class="number">2</span>+(<span class="number">1</span>-x(<span class="number">1</span>))^<span class="number">2</span>);</span><br><span class="line"><span class="comment">% 函数句柄 ，@(x)的 x 为输入的向量, 利用两个元素分别进行计算</span></span><br><span class="line">syms x y,ezsurfc(ff([x1,x2]),[<span class="number">-2</span>,<span class="number">2</span>,<span class="number">-2</span>,<span class="number">2</span>]) <span class="comment">% 将横纵坐标x1,x2 认定为</span></span><br><span class="line">ff 二维自定义变量,即可进行surfc</span><br><span class="line">x0=[<span class="number">-5</span>,<span class="number">-2</span>,<span class="number">2</span>,<span class="number">5</span>;<span class="number">-5</span>,<span class="number">-2</span>,<span class="number">2</span>,<span class="number">5</span>]; <span class="comment">% 设立 4 种不同的搜索起点 （ 每一种为列向量 </span></span><br><span class="line">[sx,sfval,sexit,soutput]=fminsearch(ff,x0)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 收敛到了四种不同的解 ， 但仅有第一个x=1,y=1是正确的</span></span><br><span class="line">sx = <span class="number">0.99998</span> <span class="number">-0.68971</span> <span class="number">0.41507</span> <span class="number">8.0886</span></span><br><span class="line">     <span class="number">0.99997</span> <span class="number">-1.9168</span>  <span class="number">4.9643</span>  <span class="number">7.8004</span></span><br><span class="line"><span class="comment">%sfval 显示所有极小值中最小的一个</span></span><br><span class="line">sfval = <span class="number">2.4112e-10</span></span><br><span class="line">sexit = <span class="number">1</span></span><br><span class="line">soutput =</span><br><span class="line">iterations: <span class="number">384</span></span><br><span class="line">funcCount: <span class="number">615</span></span><br><span class="line">algorithm: <span class="string">'Nelder-Mead simplex direct search'</span></span><br><span class="line">message: <span class="string">'优化已终止:…’</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="fminunc"><a href="#fminunc" class="headerlink" title="fminunc"></a>fminunc</h3><p>功能，用法与fminsearch 相同，效果通常好于后者</p>
+<h3 id="最速梯度下降法"><a href="#最速梯度下降法" class="headerlink" title="最速梯度下降法"></a>最速梯度下降法</h3><p>【例】用梯度下降法求𝑓 𝑦,𝑧 = 100 𝑧 − 𝑦 2 2 + 1 − 𝑦 2 的极小值点</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">clear,clc</span><br><span class="line">ff=@(x,y) (<span class="number">100</span>*(y-x^<span class="number">2</span>)^<span class="number">2</span>+(<span class="number">1</span>-x)^<span class="number">2</span>);<span class="comment">% 函数及其导数</span></span><br><span class="line">dff =@(x,y) [<span class="number">2</span>*x - <span class="number">400</span>*x*(- x^<span class="number">2</span> + y) - <span class="number">2</span>;- <span class="number">200</span>*x^<span class="number">2</span> + <span class="number">200</span>*y];</span><br><span class="line">x0 = <span class="number">-5</span>; y0 = <span class="number">-2</span>; <span class="comment">% 初始条件（可改变）</span></span><br><span class="line">x_old = x0;y_old = y0;iter=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">iter = iter+<span class="number">1</span>;</span><br><span class="line">Grad = dff(x_old,y_old); <span class="comment">% 梯度方向的获得</span></span><br><span class="line">lsf = @(lambda) ff(x_old-lambda*Grad(<span class="number">1</span>),y_old-...</span><br><span class="line">lambda*Grad(<span class="number">2</span>)); <span class="comment">% 生成对应方向关于步长的一元函数</span></span><br><span class="line">[lambda,~]=fminbnd(lsf,<span class="number">0</span>,<span class="number">10</span>);<span class="comment">% 搜索最佳步长</span></span><br><span class="line">x_new=x_old-lambda*Grad(<span class="number">1</span>);</span><br><span class="line">y_new=y_old-lambda*Grad(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">abs</span>(x_new-x_old)&lt;<span class="number">1e-8</span> &amp;&amp; <span class="built_in">abs</span>(y_new-y_old)&lt;<span class="number">1e-8</span>)</span><br><span class="line"><span class="keyword">break</span>; <span class="comment">% 当x 与y 均保持稳定时结束迭代</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">x_old = x_new;y_old = y_new;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">iter,x_new,y_new</span><br><span class="line">err = ff(x_new,y_new)<span class="number">-0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="线性方程组"><a href="#线性方程组" class="headerlink" title="线性方程组"></a>线性方程组</h2><h3 id="pcg-A-b-tol"><a href="#pcg-A-b-tol" class="headerlink" title="pcg(A,b,tol)"></a>pcg(A,b,tol)</h3><p>求解 AX=b，tol 是误差 tolerance</p>
+<p>（带有简单的病态预处理）</p>
+<h2 id="非线性方程（组）"><a href="#非线性方程（组）" class="headerlink" title="非线性方程（组）"></a>非线性方程（组）</h2><h3 id="fzero"><a href="#fzero" class="headerlink" title="fzero"></a>fzero</h3><p>[x, fval] = fzero(fun, x0)</p>
+<p>以 x0 为初值寻找 fun 的一个零点；</p>
+<p>注意 fun 必须是匿名函数或函数句柄！</p>
+<h3 id="fsolve"><a href="#fsolve" class="headerlink" title="fsolve"></a>fsolve</h3><p> [x, fval] = fsolve(fun, x0) </p>
+<p>fun 是函数向量，找函数向量 fun 的一个零点</p>
+<h2 id="概率统计"><a href="#概率统计" class="headerlink" title="概率统计"></a>概率统计</h2><h3 id="rng-default"><a href="#rng-default" class="headerlink" title="rng default"></a>rng default</h3><p>伪随机。将随机流恢复至 matlab 启动时的默认状态，即可以再现的随机</p>
+<h3 id="rng-shuffle"><a href="#rng-shuffle" class="headerlink" title="rng shuffle"></a>rng shuffle</h3><p>真随机。将随机流根据时间变量进行设置，任何一次随机均无法再现，但可以确保测试结果可以与之前已有的测试结果进行累加</p>
+<h3 id="rand-randn-randi"><a href="#rand-randn-randi" class="headerlink" title="rand, randn, randi"></a>rand, randn, randi</h3><p>rand(m, n)：生成 m*n 的均匀分布矩阵</p>
+<p>randn(m, n)：标准正态分布</p>
+<p>randi( [min_int, max_int],  m, n)：[min_int, max_int]之间的整数均匀分布</p>
+<h3 id="binopdf-binocdf-binornd"><a href="#binopdf-binocdf-binornd" class="headerlink" title="binopdf, binocdf, binornd"></a>binopdf, binocdf, binornd</h3><h3 id="normpdf-normcdf-normrnd"><a href="#normpdf-normcdf-normrnd" class="headerlink" title="normpdf, normcdf, normrnd"></a>normpdf, normcdf, normrnd</h3><h3 id="disttool"><a href="#disttool" class="headerlink" title="disttool"></a>disttool</h3><h4 id="makedist"><a href="#makedist" class="headerlink" title="makedist"></a>makedist</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; pd=makedist(<span class="string">'Poisson'</span>,lambda)</span><br><span class="line"></span><br><span class="line">&gt;&gt; pd = </span><br><span class="line"></span><br><span class="line">  PoissonDistribution</span><br><span class="line"></span><br><span class="line">  Poisson distribution</span><br><span class="line">    lambda = <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">&gt;&gt; pdf(pd,<span class="number">0</span>:<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line"></span><br><span class="line">    <span class="number">0.1353</span>    <span class="number">0.2707</span>    <span class="number">0.2707</span>    <span class="number">0.1804</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mean"><a href="#mean" class="headerlink" title="mean"></a>mean</h3><p>mean(A) 计算矩阵 A 各列均值与中位值，返回一个向量（若A 为向量则返回各分量平均值）</p>
+<h3 id="median"><a href="#median" class="headerlink" title="median"></a>median</h3><p>与 mean 用法相同</p>
+<h3 id="std-var"><a href="#std-var" class="headerlink" title="std, var"></a>std, var</h3><p>样本标准差，样本方差</p>
+<h3 id="cov"><a href="#cov" class="headerlink" title="cov"></a>cov</h3><p>cov(X) 计算以矩阵各列组成的列向量的协方差矩阵</p>
+<p>如：第(i, j) 个元素代表第 i 列 与 第 j 列这两个列向量之间的协方差</p>
+<h3 id="corrcoef"><a href="#corrcoef" class="headerlink" title="corrcoef"></a>corrcoef</h3><p>corrcoef 计算以矩阵各列组成的列向量对应的相关系数</p>
+<p>如：第(i, j) 个元素代表第 i 列 与 第 j 列这两个列向量之间的相关系数</p>
+<h3 id="多项式拟合"><a href="#多项式拟合" class="headerlink" title="多项式拟合"></a>多项式拟合</h3><h3 id="polyfit"><a href="#polyfit" class="headerlink" title="polyfit"></a>polyfit</h3><p>p = ployfit(<strong>x</strong>, <strong>y</strong>,  n)</p>
+<p><strong>x</strong>, <strong>y</strong> 为维数相等的两个向量（对应的一组坐标）；n 为设定的拟合阶数</p>
+<p>返回多项式系数向量</p>
+<ul>
+<li>代码示例</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x0=<span class="number">0</span>:<span class="number">0.1</span>:<span class="number">1</span>; <span class="comment">%11 点均匀采样</span></span><br><span class="line">y0=[<span class="number">-.447</span>,<span class="number">1.978</span>,<span class="number">3.11</span>,<span class="number">5.25</span>,<span class="number">5.02</span>,<span class="number">4.66</span>,<span class="number">4.01</span>,<span class="number">4.58</span>,<span class="number">3.45</span>,<span class="number">5.35</span>,<span class="number">9.22</span>];</span><br><span class="line">n=<span class="number">3</span>;P=polyfit(x0,y0,n) <span class="comment">%3 次采样 ， 共4 个系数 ， 从高次到低次</span></span><br><span class="line">P = <span class="number">56.6915</span> <span class="number">-87.1174</span> <span class="number">40.0070</span> <span class="number">-0.9043</span></span><br><span class="line">xx=<span class="number">0</span>:<span class="number">0.01</span>:<span class="number">1</span>;yy=polyval(P,xx);</span><br><span class="line"><span class="built_in">plot</span>(xx,yy,<span class="string">'-b'</span>,x0,y0,<span class="string">'.r'</span>,<span class="string">'MarkerSize'</span>,<span class="number">20</span>)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">' 拟合曲线'</span>,<span class="string">' 原始数据'</span>,<span class="string">'Location'</span>,<span class="string">'SouthEast'</span>),xlabel(<span class="string">'x'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="polyval"><a href="#polyval" class="headerlink" title="polyval"></a>polyval</h3><p>y1 = polyval(<strong>p</strong>, <strong>x0</strong>)</p>
+<p>将<strong>向量</strong> x0 代入多项式 p 中得到一组拟合 y 值 (<strong>向量</strong>)</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">y1 = polyval(P,x0); <span class="comment">% 观察11 个采样点的拟合值</span></span><br><span class="line"><span class="built_in">disp</span>([<span class="string">' 平方逼近误差为'</span>,num2str(norm(y1-y0,<span class="number">2</span>))])</span><br><span class="line">平方逼近误差为<span class="number">1.8653</span></span><br><span class="line"><span class="built_in">disp</span>([<span class="string">' 一致逼近误差为'</span>,num2str(norm(y1-y0,<span class="built_in">inf</span>))])</span><br><span class="line">一致逼近误差为<span class="number">0.95592</span></span><br><span class="line">T=<span class="built_in">table</span>(x0',y0',y1',y1'-y0',...</span><br><span class="line"><span class="string">'VariableNames'</span>,&#123;<span class="string">'X'</span>, <span class="string">'Y'</span>, <span class="string">'Fit'</span>, <span class="string">'FitError'</span>&#125;)<span class="comment">%</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">T =</span><br><span class="line">X Y Fit FitError</span><br><span class="line">___ ______ ________ _________</span><br><span class="line"><span class="number">0</span> <span class="number">-0.447</span> <span class="number">-0.90431</span> <span class="number">-0.45731</span></span><br><span class="line"><span class="number">0.1</span> <span class="number">1.978</span> <span class="number">2.2819</span> <span class="number">0.3039</span></span><br><span class="line"><span class="number">0.2</span> <span class="number">3.11</span> <span class="number">4.0659</span> <span class="number">0.95592</span></span><br><span class="line"><span class="number">0.3</span> <span class="number">5.25</span> <span class="number">4.7879</span> <span class="number">-0.46211</span></span><br><span class="line"><span class="number">0.4</span> <span class="number">5.02</span> <span class="number">4.788</span> <span class="number">-0.23204</span></span><br><span class="line"><span class="number">0.5</span> <span class="number">4.66</span> <span class="number">4.4063</span> <span class="number">-0.25372</span></span><br><span class="line"><span class="number">0.6</span> <span class="number">4.01</span> <span class="number">3.983</span> <span class="number">-0.027002</span></span><br><span class="line"><span class="number">0.7</span> <span class="number">4.58</span> <span class="number">3.8583</span> <span class="number">-0.72174</span></span><br><span class="line"><span class="number">0.8</span> <span class="number">3.45</span> <span class="number">4.3722</span> <span class="number">0.92223</span></span><br><span class="line"><span class="number">0.9</span> <span class="number">5.35</span> <span class="number">5.865</span> <span class="number">0.51503</span></span><br><span class="line"><span class="number">1</span> <span class="number">9.22</span> <span class="number">8.6768</span> <span class="number">-0.54316</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="最小二乘法拟合及其变种"><a href="#最小二乘法拟合及其变种" class="headerlink" title="最小二乘法拟合及其变种"></a>最小二乘法拟合及其变种</h3><h4 id="岭回归"><a href="#岭回归" class="headerlink" title="岭回归"></a>岭回归</h4><p>表达式：2 - 范数 衡量误差，2 - 范数 衡量系数稀疏性</p>
+<h4 id="LASSO"><a href="#LASSO" class="headerlink" title="LASSO"></a>LASSO</h4><p>表达式：2 - 范数 衡量误差，1 - 范数 衡量系数稀疏性</p>
+<p>适用：拟合时考虑系数的稀疏性（即尽量多的绝对值小的系数）</p>
+<h4 id="LAR（最小绝对残差）"><a href="#LAR（最小绝对残差）" class="headerlink" title="LAR（最小绝对残差）"></a>LAR（最小绝对残差）</h4><p>表达式：1 - 范数衡量误差</p>
+<p>适用：对离群值的处理较好（公交车站）</p>
+<h3 id="cftool（matlab自带拟合工具箱）的使用"><a href="#cftool（matlab自带拟合工具箱）的使用" class="headerlink" title="cftool（matlab自带拟合工具箱）的使用"></a>cftool（matlab自带拟合工具箱）的使用</h3><h4 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h4><p>是一个向量，给误差加权</p>
+<p>最小化目标变成 min||W(AX - b)||</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Weight=<span class="built_in">ones</span>(<span class="number">1</span>,<span class="number">11</span>);</span><br><span class="line">Weight(<span class="number">5</span>)=<span class="number">100</span>;<span class="comment">%使样本数据中的第五个点几乎无误差</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数字信号处理"><a href="#数字信号处理" class="headerlink" title="数字信号处理"></a>数字信号处理</h2><ul>
+<li><p>信号的数字化需要3个步骤：<strong>抽样，量化，编码</strong></p>
+</li>
+<li><p>噪声：信号传输目标认定为<strong>无效或干扰</strong>的部分</p>
+</li>
+<li><p>信噪比（SNR）：SNR 即 “signal to noise ratio” ，顾名思义，就是信号与噪声的比值： $10\cdot log_{10}\frac{\Sigma f^2(x)}{\Sigma[y-f(x)]^2}$。是衡量去噪效果的一种尺度。 matlab 函数为：<strong>snr(signal, noise)</strong></p>
+</li>
+<li><p>去噪方法：（根据什么选择方法？1.噪声类型和强度；2. 目标函数（真实信号值））</p>
+</li>
+</ul>
+<h3 id="smooth"><a href="#smooth" class="headerlink" title="smooth"></a>smooth</h3><p>f1 = smooth(y)</p>
+<p>对离散信号向量 y 使用均值滤波得到向量 f1 ，默认为五点均值滤波</p>
+<h3 id="conv"><a href="#conv" class="headerlink" title="conv"></a>conv</h3><p>f1 = conv(y, [权值向量], ‘same’)</p>
+<p>权值向量的维度是多少，就是多少点的均值滤波</p>
+<h2 id="二维曲线与图"><a href="#二维曲线与图" class="headerlink" title="二维曲线与图"></a>二维曲线与图</h2><h3 id="area-Y"><a href="#area-Y" class="headerlink" title="area(Y)"></a>area(Y)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Y = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>;</span><br><span class="line">     <span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>;</span><br><span class="line">     <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>;</span><br><span class="line">     <span class="number">2</span>, <span class="number">6</span>, <span class="number">1</span>];</span><br><span class="line"><span class="built_in">figure</span></span><br><span class="line">area(Y)</span><br></pre></td></tr></table></figure>
+
+<p>把矩阵 Y 的每一列看成一条线，画 3 条折线（横坐标为 1,2 3 4 )</p>
+<p>效果：</p>
+<p> <a href="C:\Users\17625\Desktop\area.html" target="_blank" rel="noopener">area.html</a> </p>
+<h3 id="plot-1"><a href="#plot-1" class="headerlink" title="plot"></a>plot</h3><p>axis on ：使用轴背景</p>
+<p>axis off ：取消轴背景</p>
+<p>axis equal：横纵轴采用等长刻度</p>
+<p>axis square：调整 x, y轴刻度使得图示接近正方形</p>
+<p>axis image：横纵等长刻度且坐标轴框贴紧画出来的线</p>
+<p>axis tight：把 x, y 范围直接设为坐标范围</p>
+<p>xlabel(’期末成绩’)</p>
+<p>xticks：</p>
+<p>xtickslabel(‘Score’)</p>
+<p>text(x, y, ‘压力老大爷’)</p>
+<p>\fontname{Roman}</p>
+<p>\fontsize{4}</p>
+<p>\approx</p>
+<p>\partial</p>
+<h3 id="plotyy"><a href="#plotyy" class="headerlink" title="plotyy"></a>plotyy</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">0</span>:<span class="number">0.01</span>:<span class="number">20</span>;</span><br><span class="line">y1 = <span class="number">200</span>*<span class="built_in">exp</span>(<span class="number">-0.05</span>*x).*<span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="number">0.8</span>*<span class="built_in">exp</span>(<span class="number">-0.5</span>*x).*<span class="built_in">sin</span>(<span class="number">10</span>*x);</span><br><span class="line"></span><br><span class="line"><span class="built_in">figure</span> <span class="comment">% new figure</span></span><br><span class="line">[hAx,hLine1,hLine2] = plotyy(x,y1,x,y2);</span><br><span class="line"><span class="comment">%图柄，后面设置y坐标名字要用</span></span><br><span class="line"></span><br><span class="line">title(<span class="string">'Multiple Decay Rates'</span>)</span><br><span class="line">xlabel(<span class="string">'Time (\musec)'</span>)</span><br><span class="line"></span><br><span class="line">ylabel(hAx(<span class="number">1</span>),<span class="string">'Slow Decay'</span>) <span class="comment">% left y-axis</span></span><br><span class="line">ylabel(hAx(<span class="number">2</span>),<span class="string">'Fast Decay'</span>) <span class="comment">% right y-axis</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="傅里叶变换-1"><a href="#傅里叶变换-1" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h3><h4 id="连续傅里叶变换"><a href="#连续傅里叶变换" class="headerlink" title="连续傅里叶变换"></a>连续傅里叶变换</h4><h4 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h4><p>定义：</p>
+<p>”低频系数“：Y(1)</p>
+<p>”高频系数“：除了Y(1)之外的所有值（Y(2), Y(3),……)</p>
+<h5 id="fft-X"><a href="#fft-X" class="headerlink" title="fft(X)"></a>fft(X)</h5><h5 id="ifft-Y"><a href="#ifft-Y" class="headerlink" title="ifft(Y)"></a>ifft(Y)</h5><p><strong>去噪方法</strong>：保留大于阈值的系数，砍掉小于阈值的系数</p>
+<p>效果：傅里叶变换对于<strong>三角函数</strong>去噪<strong>效果极佳</strong>，因为三角函数在此<br>变换<strong>系数满足完美稀疏</strong>，对于<strong>分片光滑函数效果则一般</strong>，根据 目标函数特性 选择 合适变换及约束（正则化）方法 很关键</p>
+<h2 id="声音信号"><a href="#声音信号" class="headerlink" title="声音信号"></a>声音信号</h2><h3 id="audioinfo"><a href="#audioinfo" class="headerlink" title="audioinfo"></a>audioinfo</h3><h3 id="y-Fs-audioread"><a href="#y-Fs-audioread" class="headerlink" title="[y, Fs] = audioread"></a>[y, Fs] = audioread</h3><p>y是声音的数字信号，两列分别为左右声道</p>
+<p>Fs 是采样率（44100个连在一起的离散信号构成了一秒的声音）</p>
+<h3 id="sound-y-Fs"><a href="#sound-y-Fs" class="headerlink" title="sound(y, Fs)"></a>sound(y, Fs)</h3><p>按采样率 Fs 播放 y</p>
+<h3 id="audiowrite-‘Drown-flac’-y-Fs"><a href="#audiowrite-‘Drown-flac’-y-Fs" class="headerlink" title="audiowrite(‘Drown.flac’, y, Fs)"></a>audiowrite(‘Drown.flac’, y, Fs)</h3><p>将声音写入文件</p>
+<h2 id="多项式表示与运算"><a href="#多项式表示与运算" class="headerlink" title="多项式表示与运算"></a>多项式表示与运算</h2><p>多项式表示为向量（系数<strong><em>降幂</em></strong> 排列）</p>
+<h3 id="conv-a-b"><a href="#conv-a-b" class="headerlink" title="conv(a,b)"></a>conv(a,b)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">N = conv([<span class="number">3</span> <span class="number">0</span> <span class="number">1</span>],[<span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">1</span>]);</span><br><span class="line">D = conv([<span class="number">2</span> <span class="number">3</span>],[<span class="number">2</span> <span class="number">0</span> <span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Q-r-deconv-N-D"><a href="#Q-r-deconv-N-D" class="headerlink" title="[Q,r] = deconv(N,D)"></a>[Q,r] = deconv(N,D)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Q, r] = deconv(N,D) <span class="comment">%计算 N%D 的带余除法，即N=QD+r</span></span><br></pre></td></tr></table></figure>
+
+<p>回代验证误差：<strong>易错</strong>！因为 余式 维数不确定！</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="built_in">length</span>(r);</span><br><span class="line">N1 = conv(Q, D);</span><br><span class="line">N1(<span class="keyword">end</span> - m + <span class="number">1</span> : <span class="keyword">end</span>) = N1(<span class="keyword">end</span> - m + <span class="number">1</span> : <span class="keyword">end</span>) + r;</span><br><span class="line">norm(N1 - N) <span class="comment">% 绝对误差</span></span><br><span class="line">norm(N1 - N)/norm(N) <span class="comment">%相对误差</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="roots-f"><a href="#roots-f" class="headerlink" title="roots(f)"></a>roots(f)</h3><p>返回多项式 f(x)的零点<strong>向量</strong></p>
+<h3 id="poly-r"><a href="#poly-r" class="headerlink" title="poly(r)"></a>poly(r)</h3><p>输入：零点向量[x1, x2, … ,xn]</p>
+<p>输出：多项式（x-x1)(x-x2)…(x-xn)</p>
+<h3 id="polyval-p-X"><a href="#polyval-p-X" class="headerlink" title="polyval(p, X)"></a>polyval(p, X)</h3><p>与前面向量类似，将矩阵 X 中的每个值代进去 多项式 p 中，输出相同大小的矩阵（p($x_{ij}$)）</p>
+<h3 id="polyvalm-p-X"><a href="#polyvalm-p-X" class="headerlink" title="polyvalm(p, X)"></a>polyvalm(p, X)</h3><p>即polyval matrix</p>
+<p>矩阵多项式（如 ODE 基解矩阵）</p>
+<h3 id="poly2str（p-‘x’）"><a href="#poly2str（p-‘x’）" class="headerlink" title="poly2str（p, ‘x’）"></a>poly2str（p, ‘x’）</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q = [<span class="number">2</span> <span class="number">2</span> <span class="number">3</span>]</span><br><span class="line">poly2str(q,<span class="string">'s'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="胞元矩阵"><a href="#胞元矩阵" class="headerlink" title="胞元矩阵"></a>胞元矩阵</h2><p>一言以蔽之，就是元素可以是不同类型的矩阵。如：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">C_str=<span class="string">'例 这是胞元数组创建算例 1'</span>; <span class="comment">%</span></span><br><span class="line">R=<span class="built_in">reshape</span>(<span class="number">1</span>:<span class="number">9</span>,<span class="number">3</span>,<span class="number">3</span>); </span><br><span class="line">Cn=[<span class="number">1</span>+<span class="number">2</span><span class="built_in">i</span>];</span><br><span class="line">syms t, S_sym=<span class="built_in">sin</span>(<span class="number">-3</span>*t)*<span class="built_in">exp</span>(-t); </span><br><span class="line">B&#123;<span class="number">1</span>,<span class="number">1</span>&#125;=C_str; B&#123;<span class="number">1</span>,<span class="number">2</span>&#125;=R;B&#123;<span class="number">2</span>,<span class="number">1</span>&#125;=Cn;B&#123;<span class="number">2</span>,<span class="number">2</span>&#125;=S_sym;<span class="comment">%四个元素类型不同</span></span><br></pre></td></tr></table></figure>
+
+<p>两种援引元素的方式：</p>
+<ul>
+<li>B(1, 2)援引元素类型</li>
+<li>B{1, 2}援引元素内容（即元素本身）</li>
+</ul>
+<p>如：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = B(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">class(a)</span><br><span class="line"></span><br><span class="line">输出：a = [<span class="number">3</span>*<span class="number">3</span> double]</span><br><span class="line"><span class="built_in">ans</span> = cell</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">b = B&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">class(b)</span><br><span class="line"></span><br><span class="line">输出：b = <span class="number">1</span> <span class="number">4</span> <span class="number">7</span></span><br><span class="line">         <span class="number">2</span> <span class="number">5</span> <span class="number">8</span></span><br><span class="line">         <span class="number">3</span> <span class="number">6</span> <span class="number">9</span></span><br><span class="line"><span class="built_in">ans</span> = double</span><br></pre></td></tr></table></figure>
+
+<p>应用实例：</p>
+<p>注意给胞元<strong>赋值</strong>时是：A(2,1) = {‘David’} 或 A{2,1} = ‘David’</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">clear;</span><br><span class="line"><span class="comment">%满分(100) ，优秀(90-99) ，良好(80-89) ，及格(60-79) ，不及格(&lt;60)</span></span><br><span class="line"><span class="keyword">for</span> k=<span class="number">1</span>:<span class="number">10</span></span><br><span class="line">a(k)=&#123;<span class="number">89</span>+k&#125;;b(k)=&#123;<span class="number">79</span>+k&#125;;c(k)=&#123;<span class="number">69</span>+k&#125;;d(k)=&#123;<span class="number">59</span>+k&#125;;<span class="comment">% 每个胞元是数</span></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line">c=[d,c];<span class="comment">%60~69 与70~79 归为同一类</span></span><br><span class="line"><span class="comment">% 输入学生的名字和分数</span></span><br><span class="line">A=cell(<span class="number">3</span>,<span class="number">5</span>); <span class="comment">%A 也定义成胞元数组</span></span><br><span class="line">A(<span class="number">1</span>,:)=&#123;<span class="string">'Jack'</span>,<span class="string">'Marry'</span>,<span class="string">'Peter'</span>,<span class="string">'Rose'</span>,<span class="string">'Tom'</span>&#125;;</span><br><span class="line">A(<span class="number">2</span>,:)=&#123;<span class="number">72</span>,<span class="number">83</span>,<span class="number">56</span>,<span class="number">94</span>,<span class="number">100</span>&#125;;</span><br><span class="line"><span class="comment">% 根据学生的分数 ， 求出相应的等级 。</span></span><br><span class="line"><span class="keyword">for</span> k=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line"><span class="keyword">switch</span> A&#123;<span class="number">2</span>,k&#125; <span class="comment">% 对A&#123;2,k&#125; 进行判断</span></span><br><span class="line"><span class="keyword">case</span> <span class="number">100</span>,r=<span class="string">' 满分'</span>;</span><br><span class="line"><span class="keyword">case</span> a,r=<span class="string">' 优秀'</span>; <span class="comment">% 若A&#123;2,k&#125; 出现在胞元数组a 中 ， 即介于90 和99 之间</span></span><br><span class="line"><span class="keyword">case</span> b,r=<span class="string">' 良好'</span>;</span><br><span class="line"><span class="keyword">case</span> c,r=<span class="string">' 及格'</span>;</span><br><span class="line"><span class="keyword">otherwise</span>,r=<span class="string">' 不及格'</span>;<span class="comment">% 其余情况 ， 结果字符串r 为’ 不及格’</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">A(<span class="number">3</span>,k)=&#123;r&#125;; <span class="comment">% 将胞元数组A</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h2><p>如何避免代入pi 时出现莫名其妙的大分数？用 sym(pi) ，且越靠里越好！</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = sym(<span class="number">1</span>/<span class="built_in">pi</span>);</span><br><span class="line">b = <span class="number">1</span>/sym(<span class="built_in">pi</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p>a = 5734161139222659/18014398509481984;</p>
+<p>b = 1/pi .</p>
+<h3 id="mod与rem"><a href="#mod与rem" class="headerlink" title="mod与rem"></a>mod与rem</h3><p>都是返回整除余数，但符号mod看除数rem看被除数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mod(-2,3) = 1;   rem(-2,3) = -2</span><br><span class="line">mod(3,-2) =</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令窗备忘"><a href="#命令窗备忘" class="headerlink" title="命令窗备忘"></a>命令窗备忘</h2><ul>
+<li>clf(clear figure)：清楚图形窗口</li>
+<li>clc(clear command)：清楚<strong>指令窗中</strong>显示内容</li>
+<li>clear：清楚 <strong>matlab 工作空间</strong>中保存的变量</li>
+<li>doc：在 <strong>matlab浏览器</strong>中显示帮助信息</li>
+<li>edit：打开 M文件编辑器</li>
+<li>help：在<strong>指令窗中</strong>显示帮助信息</li>
+<li>close all ：关闭所有弹出窗口</li>
+<li>helpwin ：在弹出窗口中显示帮助信息</li>
+<li>format short：通常保证小数点后4位有效，最多不超过7位。对于大于1000的实数用5位有效数字科学计数法显示</li>
+<li>format long：小数点后15位有效数字表示</li>
+<li>format short e：5位科学计数法表示</li>
+<li>format long e：16为科学计数法表示</li>
+<li>format long g：从 format long 和format long e 中自动选择最佳</li>
+<li>format rat：近似有理数表示</li>
+<li>format hex ：十六进制表示</li>
+<li>whos：显示所有内存变量类别</li>
+<li>isa(a, ‘sym’)：判断变量类型</li>
+<li>digits：显示当前vpa命令的截断位数（用于规定运算精度）</li>
+<li>digits(n)：设置vpa 命令的截断位数为n</li>
+<li>vpa(运算表达式)：对其中的每一个运算都控制精度，并非只控制结果</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Matlab/" rel="tag"># Matlab</a>
+          
+            <a href="/tags/小技巧/" rel="tag"># 小技巧</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/23/matlab笔记-差分方程/" rel="next" title="Matlab笔记1">
+                <i class="fa fa-chevron-left"></i> Matlab笔记1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/29/plog5/" rel="prev" title="plog5">
+                plog5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg" alt="Zarzard Wu">
+            
+              <p class="site-author-name" itemprop="name">Zarzard Wu</p>
+              <p class="site-description motion-element" itemprop="description">Zarzard的个人博客，记录一些胡思乱想，做点学习笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Matlab小函数备忘"><span class="nav-number">1.</span> <span class="nav-text">Matlab小函数备忘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵向量化操作"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵向量化操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A"><span class="nav-number">1.1.1.</span> <span class="nav-text">A(:)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repmat"><span class="nav-number">1.1.2.</span> <span class="nav-text">repmat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.1.3.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reshape"><span class="nav-number">1.1.4.</span> <span class="nav-text">reshape</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inv"><span class="nav-number">1.1.5.</span> <span class="nav-text">inv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#randn"><span class="nav-number">1.1.6.</span> <span class="nav-text">randn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rand"><span class="nav-number">1.1.7.</span> <span class="nav-text">rand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#randi"><span class="nav-number">1.1.8.</span> <span class="nav-text">randi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对矩阵元素排序"><span class="nav-number">1.1.9.</span> <span class="nav-text">对矩阵元素排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵幂运算与矩阵函数"><span class="nav-number">1.1.10.</span> <span class="nav-text">矩阵幂运算与矩阵函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#胞元数组"><span class="nav-number">1.1.11.</span> <span class="nav-text">胞元数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号矩阵分析"><span class="nav-number">1.2.</span> <span class="nav-text">符号矩阵分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-’-转置-与A’-共轭转置"><span class="nav-number">1.2.1.</span> <span class="nav-text">A.’(转置)与A’(共轭转置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共轭矩阵"><span class="nav-number">1.2.2.</span> <span class="nav-text">共轭矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#det-A"><span class="nav-number">1.2.3.</span> <span class="nav-text">det(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diag-A"><span class="nav-number">1.2.4.</span> <span class="nav-text">diag(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expm-A"><span class="nav-number">1.2.5.</span> <span class="nav-text">expm(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A的最大维度大小（若A为向量，则返回长度）"><span class="nav-number">1.2.6.</span> <span class="nav-text">A的最大维度大小（若A为向量，则返回长度）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ndims-A"><span class="nav-number">1.2.7.</span> <span class="nav-text">ndims(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A所含元素总数"><span class="nav-number">1.2.8.</span> <span class="nav-text">A所含元素总数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每一维大小（行-列）"><span class="nav-number">1.2.9.</span> <span class="nav-text">每一维大小（行*列）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rank-A"><span class="nav-number">1.2.10.</span> <span class="nav-text">rank(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#化为下三角矩阵"><span class="nav-number">1.2.11.</span> <span class="nav-text">化为下三角矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V-D-eig-A"><span class="nav-number">1.2.12.</span> <span class="nav-text">[V, D] = eig(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eigs-A"><span class="nav-number">1.2.13.</span> <span class="nav-text">eigs(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poly-A"><span class="nav-number">1.2.14.</span> <span class="nav-text">poly(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V-J-jordan-A"><span class="nav-number">1.2.15.</span> <span class="nav-text">[V, J] = jordan(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#U-S-V-svd-A"><span class="nav-number">1.2.16.</span> <span class="nav-text">[U, S, V] = svd(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L-U-lu-A"><span class="nav-number">1.2.17.</span> <span class="nav-text">[L, U] = lu(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-R-qr-A"><span class="nav-number">1.2.18.</span> <span class="nav-text">[Q, R] = qr(A)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求雅可比矩阵"><span class="nav-number">1.2.19.</span> <span class="nav-text">求雅可比矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏矩阵"><span class="nav-number">1.2.20.</span> <span class="nav-text">稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成n阶单位稀疏矩阵"><span class="nav-number">1.2.20.1.</span> <span class="nav-text">生成n阶单位稀疏矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于三元组表示法将大矩阵转化为稀疏矩阵"><span class="nav-number">1.2.20.2.</span> <span class="nav-text">基于三元组表示法将大矩阵转化为稀疏矩阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻转矩阵"><span class="nav-number">1.2.21.</span> <span class="nav-text">翻转矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上下翻转-以中间行为镜子，上下对应的行交换位置"><span class="nav-number">1.2.21.1.</span> <span class="nav-text">上下翻转(以中间行为镜子，上下对应的行交换位置)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左右翻转-以中间列为镜子，左右对应的列交换位置"><span class="nav-number">1.2.21.2.</span> <span class="nav-text">左右翻转(以中间列为镜子，左右对应的列交换位置)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逆时针旋转-90-o-的整数倍"><span class="nav-number">1.2.21.3.</span> <span class="nav-text">逆时针旋转 $90^o$的整数倍</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方程（组）符号解"><span class="nav-number">1.3.</span> <span class="nav-text">方程（组）符号解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性方程组可直接A-b"><span class="nav-number">1.3.1.</span> <span class="nav-text">线性方程组可直接A\b</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般方程组：solve"><span class="nav-number">1.3.2.</span> <span class="nav-text">一般方程组：solve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多项式求根"><span class="nav-number">1.3.3.</span> <span class="nav-text">多项式求根</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘图"><span class="nav-number">1.4.</span> <span class="nav-text">绘图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逐点绘图"><span class="nav-number">1.4.1.</span> <span class="nav-text">逐点绘图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#meshgrid"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">meshgrid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plot"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">plot</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号绘图"><span class="nav-number">1.4.2.</span> <span class="nav-text">符号绘图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.4.3.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值微分"><span class="nav-number">1.5.</span> <span class="nav-text">数值微分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">1.5.1.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gradient"><span class="nav-number">1.5.2.</span> <span class="nav-text">gradient</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号微分"><span class="nav-number">1.6.</span> <span class="nav-text">符号微分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#diff-1"><span class="nav-number">1.6.1.</span> <span class="nav-text">diff</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号极限"><span class="nav-number">1.7.</span> <span class="nav-text">符号极限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值求和"><span class="nav-number">1.8.</span> <span class="nav-text">数值求和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sum"><span class="nav-number">1.8.1.</span> <span class="nav-text">sum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号求和"><span class="nav-number">1.9.</span> <span class="nav-text">符号求和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#symsum"><span class="nav-number">1.9.1.</span> <span class="nav-text">symsum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值积分"><span class="nav-number">1.10.</span> <span class="nav-text">数值积分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#trapz"><span class="nav-number">1.10.1.</span> <span class="nav-text">trapz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#integral"><span class="nav-number">1.10.2.</span> <span class="nav-text">integral</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值微分方程（差分方程）"><span class="nav-number">1.11.</span> <span class="nav-text">数值微分方程（差分方程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号微分方程"><span class="nav-number">1.12.</span> <span class="nav-text">符号微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dsolve"><span class="nav-number">1.12.1.</span> <span class="nav-text">dsolve</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三大变换"><span class="nav-number">1.13.</span> <span class="nav-text">三大变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.13.1.</span> <span class="nav-text">傅里叶变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉普拉斯变换"><span class="nav-number">1.13.2.</span> <span class="nav-text">拉普拉斯变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Z变换"><span class="nav-number">1.13.3.</span> <span class="nav-text">Z变换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Taylor展开"><span class="nav-number">1.14.</span> <span class="nav-text">Taylor展开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数极值"><span class="nav-number">1.15.</span> <span class="nav-text">函数极值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fminbnd"><span class="nav-number">1.15.1.</span> <span class="nav-text">fminbnd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fminsearch"><span class="nav-number">1.15.2.</span> <span class="nav-text">fminsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fminunc"><span class="nav-number">1.15.3.</span> <span class="nav-text">fminunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最速梯度下降法"><span class="nav-number">1.15.4.</span> <span class="nav-text">最速梯度下降法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性方程组"><span class="nav-number">1.16.</span> <span class="nav-text">线性方程组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pcg-A-b-tol"><span class="nav-number">1.16.1.</span> <span class="nav-text">pcg(A,b,tol)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非线性方程（组）"><span class="nav-number">1.17.</span> <span class="nav-text">非线性方程（组）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fzero"><span class="nav-number">1.17.1.</span> <span class="nav-text">fzero</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fsolve"><span class="nav-number">1.17.2.</span> <span class="nav-text">fsolve</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率统计"><span class="nav-number">1.18.</span> <span class="nav-text">概率统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rng-default"><span class="nav-number">1.18.1.</span> <span class="nav-text">rng default</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rng-shuffle"><span class="nav-number">1.18.2.</span> <span class="nav-text">rng shuffle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rand-randn-randi"><span class="nav-number">1.18.3.</span> <span class="nav-text">rand, randn, randi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binopdf-binocdf-binornd"><span class="nav-number">1.18.4.</span> <span class="nav-text">binopdf, binocdf, binornd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#normpdf-normcdf-normrnd"><span class="nav-number">1.18.5.</span> <span class="nav-text">normpdf, normcdf, normrnd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#disttool"><span class="nav-number">1.18.6.</span> <span class="nav-text">disttool</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#makedist"><span class="nav-number">1.18.6.1.</span> <span class="nav-text">makedist</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mean"><span class="nav-number">1.18.7.</span> <span class="nav-text">mean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#median"><span class="nav-number">1.18.8.</span> <span class="nav-text">median</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-var"><span class="nav-number">1.18.9.</span> <span class="nav-text">std, var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cov"><span class="nav-number">1.18.10.</span> <span class="nav-text">cov</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#corrcoef"><span class="nav-number">1.18.11.</span> <span class="nav-text">corrcoef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多项式拟合"><span class="nav-number">1.18.12.</span> <span class="nav-text">多项式拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polyfit"><span class="nav-number">1.18.13.</span> <span class="nav-text">polyfit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polyval"><span class="nav-number">1.18.14.</span> <span class="nav-text">polyval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小二乘法拟合及其变种"><span class="nav-number">1.18.15.</span> <span class="nav-text">最小二乘法拟合及其变种</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#岭回归"><span class="nav-number">1.18.15.1.</span> <span class="nav-text">岭回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LASSO"><span class="nav-number">1.18.15.2.</span> <span class="nav-text">LASSO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LAR（最小绝对残差）"><span class="nav-number">1.18.15.3.</span> <span class="nav-text">LAR（最小绝对残差）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cftool（matlab自带拟合工具箱）的使用"><span class="nav-number">1.18.16.</span> <span class="nav-text">cftool（matlab自带拟合工具箱）的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#weight"><span class="nav-number">1.18.16.1.</span> <span class="nav-text">weight</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字信号处理"><span class="nav-number">1.19.</span> <span class="nav-text">数字信号处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#smooth"><span class="nav-number">1.19.1.</span> <span class="nav-text">smooth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conv"><span class="nav-number">1.19.2.</span> <span class="nav-text">conv</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维曲线与图"><span class="nav-number">1.20.</span> <span class="nav-text">二维曲线与图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#area-Y"><span class="nav-number">1.20.1.</span> <span class="nav-text">area(Y)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plot-1"><span class="nav-number">1.20.2.</span> <span class="nav-text">plot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plotyy"><span class="nav-number">1.20.3.</span> <span class="nav-text">plotyy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#傅里叶变换-1"><span class="nav-number">1.20.4.</span> <span class="nav-text">傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连续傅里叶变换"><span class="nav-number">1.20.4.1.</span> <span class="nav-text">连续傅里叶变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散傅里叶变换"><span class="nav-number">1.20.4.2.</span> <span class="nav-text">离散傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fft-X"><span class="nav-number">1.20.4.2.1.</span> <span class="nav-text">fft(X)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ifft-Y"><span class="nav-number">1.20.4.2.2.</span> <span class="nav-text">ifft(Y)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声音信号"><span class="nav-number">1.21.</span> <span class="nav-text">声音信号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#audioinfo"><span class="nav-number">1.21.1.</span> <span class="nav-text">audioinfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#y-Fs-audioread"><span class="nav-number">1.21.2.</span> <span class="nav-text">[y, Fs] = audioread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-y-Fs"><span class="nav-number">1.21.3.</span> <span class="nav-text">sound(y, Fs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#audiowrite-‘Drown-flac’-y-Fs"><span class="nav-number">1.21.4.</span> <span class="nav-text">audiowrite(‘Drown.flac’, y, Fs)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多项式表示与运算"><span class="nav-number">1.22.</span> <span class="nav-text">多项式表示与运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#conv-a-b"><span class="nav-number">1.22.1.</span> <span class="nav-text">conv(a,b)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-r-deconv-N-D"><span class="nav-number">1.22.2.</span> <span class="nav-text">[Q,r] = deconv(N,D)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#roots-f"><span class="nav-number">1.22.3.</span> <span class="nav-text">roots(f)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poly-r"><span class="nav-number">1.22.4.</span> <span class="nav-text">poly(r)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polyval-p-X"><span class="nav-number">1.22.5.</span> <span class="nav-text">polyval(p, X)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polyvalm-p-X"><span class="nav-number">1.22.6.</span> <span class="nav-text">polyvalm(p, X)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poly2str（p-‘x’）"><span class="nav-number">1.22.7.</span> <span class="nav-text">poly2str（p, ‘x’）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#胞元矩阵"><span class="nav-number">1.23.</span> <span class="nav-text">胞元矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小技巧"><span class="nav-number">1.24.</span> <span class="nav-text">小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mod与rem"><span class="nav-number">1.24.1.</span> <span class="nav-text">mod与rem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令窗备忘"><span class="nav-number">1.25.</span> <span class="nav-text">命令窗备忘</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="http://dn-lbstatics.qbox.me/bususnzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zarzard Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+
+<span id="timeDate">loading...</span><span id="times">loading...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("8/16/2019 12:00:00");//在此处修改建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "<br>"+" Runing "+dnum+" Days "; 
+        document.getElementById("times").innerHTML = hnum + " Hours " + mnum + " Minutes " + snum + " Seconds"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<div align="middle">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278188146'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1278188146%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz',
+        appKey: 'iNsrHfUKIlqKSx5sMCG6PS8S',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"model":null,"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
