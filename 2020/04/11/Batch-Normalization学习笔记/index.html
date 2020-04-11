@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Zarzard&#39;s backyard">
 <meta property="og:description" content="Batch Normalization其动机">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-11T12:21:40.031Z">
+<meta property="og:updated_time" content="2020-04-11T12:36:07.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Batch_Normalization学习笔记">
 <meta name="twitter:description" content="Batch Normalization其动机">
@@ -430,8 +430,10 @@
 <p>这个 BN层，就是如下操作：</p>
 <p><code>input</code>：$\mathcal{B} = {\boldsymbol{x}^{(1)}, \ldots, \boldsymbol{x}^{(m)} }$ </p>
 <p>求均值，方差：</p>
-<script type="math/tex; mode=display">\boldsymbol{\mu}_\mathcal{B} \leftarrow \frac{1}{m}\sum_{i = 1}^{m} \boldsymbol{x}^{(i)},</script><script type="math/tex; mode=display">\boldsymbol{\sigma}_\mathcal{B}^2 \leftarrow \frac{1}{m} \sum_{i=1}^{m}(\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_\mathcal{B})^2,</script><p>其中平方是 .^2</p>
-<p>接下来对 $\bf{x}^{(i)}$ 标准化：<script type="math/tex">\hat{\boldsymbol{x}}^{(i)} \leftarrow \frac{\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_\mathcal{B}}{\sqrt{\boldsymbol{\sigma}_\mathcal{B}^2 + \epsilon}},</script> </p>
+<p>$\boldsymbol{\mu}<em>\mathcal{B} \leftarrow \frac{1}{m}\sum</em>{i = 1}^{m} \boldsymbol{x}^{(i)},$<br>$\boldsymbol{\sigma}<em>\mathcal{B}^2 \leftarrow \frac{1}{m} \sum</em>{i=1}^{m}(\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_\mathcal{B})^2,$</p>
+<p>其中平方是 .^2</p>
+<p>接下来对 $\bf{x}^{(i)}$ 标准化：</p>
+<p>$\hat{\boldsymbol{x}}^{(i)} \leftarrow \frac{\boldsymbol{x}^{(i)} - \boldsymbol{\mu}<em>\mathcal{B}}{\sqrt{\boldsymbol{\sigma}</em>\mathcal{B}^2 + \epsilon}},$</p>
 <p>最后是重头戏：引入可以学习的 scale 和 shift 参数 $\boldsymbol{\gamma},\boldsymbol{\beta}$ ，<strong>每个 batch</strong>，在<strong>每次</strong>做 BN 时，对应<strong>一对</strong> $\boldsymbol{\gamma},\boldsymbol{\beta}$ 。它们的<strong>维数</strong>与 $\boldsymbol{x^{(i)}}$ 维数相同。得到输出：</p>
 <script type="math/tex; mode=display">{\boldsymbol{y}}^{(i)} \leftarrow \boldsymbol{\gamma} \odot \hat{\boldsymbol{x}}^{(i)} + \boldsymbol{\beta}.</script><h3 id="对卷积层"><a href="#对卷积层" class="headerlink" title="对卷积层"></a>对卷积层</h3><p>也是用在激活函数之前。</p>
 <p>如果卷积层输出多个通道，则一个通道对应唯一独立的一对  $\boldsymbol{\gamma},\boldsymbol{\beta}$ 。具体来说，每个通道（这个通道含有这个 batch 的所有样本）先展平了得到 m*h*w 个基本单元（相当于全连接层里的一个 batch），接着用这m*h*w 个的均值和方差做归一化，最后用全连接层的方式做 BN。（所以只需要 channels 这个参数？不需要 height, width?）</p>
@@ -568,7 +570,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -579,7 +581,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
