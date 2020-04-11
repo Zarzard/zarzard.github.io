@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  916
+                  918
                 </span>
               
 
@@ -471,7 +471,7 @@ y(x_{n+1})=y(x_n)+d\cdot f(x_n,y(x_n))</script><p>其中，d 为试探的步长�
 </ul>
 <h2 id="改进欧拉法"><a href="#改进欧拉法" class="headerlink" title="改进欧拉法"></a>改进欧拉法</h2><p>与欧拉法相比，在算法复杂度与欧拉法同阶（耗时约为两倍）的情况下，在相同的步长下，大大提高了（多少）精度。</p>
 <ul>
-<li><p>改进原理：对每一步迭代代入的导数值进行校正，即为了求 $y<em>{n+1}$，先要用原始欧拉法预估一个 $\bar{y}</em>{n+1}$，然后把这个值代入得到导数校正量 $f(x<em>{n+1},\bar{y}</em>{n+1})$</p>
+<li><p>改进原理：对每一步迭代代入的导数值进行校正，即为了求 $y_{n+1}$，先要用原始欧拉法预估一个 $\bar{y}_{n+1}$，然后把这个值代入得到导数校正量 $f(x_{n+1},\bar{y}_{n+1})$</p>
 <script type="math/tex; mode=display">
 y(x_{n+1})=y(x_n)+d\cdot\bar{f}(x_n,y_n)</script><p>其中，$\bar{f}$ 为校正后的导数值，计算方法如下：</p>
 <script type="math/tex; mode=display">

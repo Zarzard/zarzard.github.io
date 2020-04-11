@@ -459,7 +459,7 @@ P(x)\approx \sum_{m=1}^kw_m\cdot\mathcal{N}(\mu_m,\sigma_m)=\sum_{m=1}^kP(m)\cdo
 <hr>
 <hr>
 <h3 id="The-continuous-version-of-Gaussian-Mixture-Model"><a href="#The-continuous-version-of-Gaussian-Mixture-Model" class="headerlink" title="The continuous version of Gaussian Mixture Model:"></a>The continuous version of Gaussian Mixture Model:</h3><script type="math/tex; mode=display">
-P(x)\approx \int_w\mathcal{N}(w;0,1)\cdot\mathcal{N}(x|w;\mu_w,\sigma_w)dw=\int_zP(z)P(x|z)dz</script><p>In contrast to the original discrete version, this version we have infinite Gaussians $\mathcal{N}(\mu<em>w,\sigma_w)$ to model the objective P(x). Each Gaussian’s weight is the value of the distribution function (e.g. $\mathcal{N}(\mu</em>{0.1},\sigma_{0.1})$’s weight is the value of the normal distribution at point 0.1). </p>
+P(x)\approx \int_w\mathcal{N}(w;0,1)\cdot\mathcal{N}(x|w;\mu_w,\sigma_w)dw=\int_zP(z)P(x|z)dz</script><p>In contrast to the original discrete version, this version we have infinite Gaussians $\mathcal{N}(\mu_w,\sigma_w)$ to model the objective P(x). Each Gaussian’s weight is the value of the distribution function (e.g. $\mathcal{N}(\mu_{0.1},\sigma_{0.1})$’s weight is the value of the normal distribution at point 0.1). </p>
 <p>When we want to sample from P(x), we can first sample a z from P(z) (usually $\mathcal{N}(0,1)$, due to convinience), then sample the corresponding distribution,  $x|z\sim\mathcal{N}(\mu_z,\sigma_z)$, i.e. $\mathcal{N}(\mu(z),\sigma(z))$ , to derive x.</p>
 <p><img src="https://i.loli.net/2020/03/03/JcrQoOs1RNvKACe.png" alt="下载 23.png"></p>
 <h3 id="The-Objective"><a href="#The-Objective" class="headerlink" title="The Objective"></a>The Objective</h3><p>So, our object is to maximize the likehood of the observations, i.e.</p>
@@ -485,7 +485,7 @@ logP(x)&=\int_zQ(z|x)[logP(z)+logP(x|z)-logP(z|x)]\\
 <p>Specifically, this term is computed as follows: </p>
 <p>See the next section <strong>Encoder&amp;Decoder</strong> , we assume that z|x ~ $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$ , while $\theta_1,\theta_2$ are the weights of the Encoder NN. And recall that our P(z) is $\mathcal{N}(0,1)$, i.e. the continuous Gaussian Mixture Model’s weights’ distribution. Thus, this term is a differentiable function of $\theta_1,\theta_2$ :</p>
 <script type="math/tex; mode=display">
-0.5\sum[\mu_i^2+\exp(\sigma_i/2)-(\sigma_i+1)]</script><p>$\mu<em>i$ is the output of a NN(parameterized by $\theta</em>{1}$) . $\sigma_i$ is the output of the other NN(parameterized by $\theta_2$).  To make $\sigma_i$ positive, we use $\exp(\sigma_i/2)$ for our practical variance. </p>
+0.5\sum[\mu_i^2+\exp(\sigma_i/2)-(\sigma_i+1)]</script><p>$\mu_i$ is the output of a NN(parameterized by $\theta_{1}$) . $\sigma_i$ is the output of the other NN(parameterized by $\theta_2$).  To make $\sigma_i$ positive, we use $\exp(\sigma_i/2)$ for our practical variance. </p>
 <p>Minimizing this term means roughly small $\mu_i$, and $\sigma_i$ close to 0. Note that we use $\exp(\sigma_i/2)$ for our variance, so actually we are making Q(z|x) close to $\mathcal{N}(0,1)$. </p>
 <p><img src="https://i.loli.net/2020/03/03/V9jxlkBtEzewDXF.png" alt="下载 2.png"></p>
 </li>

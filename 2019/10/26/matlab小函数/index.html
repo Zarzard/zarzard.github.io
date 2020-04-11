@@ -439,7 +439,7 @@
       
         <h1 id="Matlab小函数备忘"><a href="#Matlab小函数备忘" class="headerlink" title="Matlab小函数备忘"></a>Matlab小函数备忘</h1><a id="more"></a>
 <p>(记得按字母序索引)</p>
-<h2 id="矩阵向量化操作"><a href="#矩阵向量化操作" class="headerlink" title="矩阵向量化操作"></a>矩阵向量化操作</h2><h3 id="A"><a href="#A" class="headerlink" title="A(:)"></a>A(:)</h3><p>拉成一个向量 ($a<em>{11},a</em>{21},…$)，注意先列后行</p>
+<h2 id="矩阵向量化操作"><a href="#矩阵向量化操作" class="headerlink" title="矩阵向量化操作"></a>矩阵向量化操作</h2><h3 id="A"><a href="#A" class="headerlink" title="A(:)"></a>A(:)</h3><p>拉成一个向量 ($a_{11},a_{21},…$)，注意先列后行</p>
 <h3 id="repmat"><a href="#repmat" class="headerlink" title="repmat"></a>repmat</h3><ul>
 <li>用途：创建由小型矩阵重复组合成的矩阵，比如各行向量相同的矩阵</li>
 <li>例子</li>
@@ -451,7 +451,7 @@
 </ul>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
 <li><p>用途：把满足find条件的下标揪出来.  当返回值只有一个时返回全下标，两个时则返回下标对 . </p>
-<p>注意这里的全下标是指先数列再数行，如在3*3矩阵中，$a<em>{13}$的全下标为3，$a</em>{31}$的全下标为7.</p>
+<p>注意这里的全下标是指先数列再数行，如在3*3矩阵中，$a_{13}$的全下标为3，$a_{31}$的全下标为7.</p>
 </li>
 <li><p>例子</p>
 </li>
@@ -633,7 +633,7 @@
 <h3 id="trapz"><a href="#trapz" class="headerlink" title="trapz"></a>trapz</h3><ul>
 <li><p>输入：trapz(y) ，y 是函数值采样点的行（列）向量；trapz(x, y)，多加的 x 是对应 y 的自变量采样点的向量</p>
 </li>
-<li><p>输出：前者输出$\Sigma[\ f(x<em>i)+f(x</em>{i+1})\ ]$的结果（第一个和最后一个只加了一次）；后者直接输出积分结果</p>
+<li><p>输出：前者输出$\Sigma[\ f(x_i)+f(x_{i+1})\ ]$的结果（第一个和最后一个只加了一次）；后者直接输出积分结果</p>
 </li>
 <li><p>原理：梯形积分</p>
 </li>

@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  511
+                  512
                 </span>
               
 
@@ -427,7 +427,7 @@
 <p><strong>基本用法</strong>：</p>
 <a id="more"></a>
 <ul>
-<li>loss 为 scalar（即只有一个元素的 tensor，非向量）时，直接使用 <code>loss.backward()</code> 即可（<strong>这里的 loss 是指某一次前向传播得到的具体的损失，是一个具体的数 $loss_0$）</strong>。意思是对本次 <code>loss</code> 的计算过程中所有的 <code>requires_grad=True</code> 的变量（即模型待学习参数）$\ \theta<em>1,…,\theta_n$求偏导并代入此次的 loss 值 $\frac{\partial loss}{\partial\theta_n}|</em>{loss=loss_0}$，最后输出向量</li>
+<li>loss 为 scalar（即只有一个元素的 tensor，非向量）时，直接使用 <code>loss.backward()</code> 即可（<strong>这里的 loss 是指某一次前向传播得到的具体的损失，是一个具体的数 $loss_0$）</strong>。意思是对本次 <code>loss</code> 的计算过程中所有的 <code>requires_grad=True</code> 的变量（即模型待学习参数）$\ \theta_1,…,\theta_n$求偏导并代入此次的 loss 值 $\frac{\partial loss}{\partial\theta_n}|_{loss=loss_0}$，最后输出向量</li>
 </ul>
 <script type="math/tex; mode=display">
 (\frac{\partial loss}{\partial \theta_1},\dots,\frac{\partial loss}{\partial\theta_n})|_{loss=loss_0}</script><ul>
