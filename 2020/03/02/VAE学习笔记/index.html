@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/03/VR8briEWK5Tavy2.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/JcrQoOs1RNvKACe.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/V9jxlkBtEzewDXF.png">
-<meta property="og:updated_time" content="2020-04-11T12:23:28.675Z">
+<meta property="og:updated_time" content="2020-04-11T14:17:29.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VAE学习笔记">
 <meta name="twitter:description" content="Variational Auto-EncoderAn outline of VAENN structureinput:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE] hidden:  activate,  and derivate a  ($\mu(x),\sigma(x) $)  for every sample x">
@@ -137,6 +137,9 @@
 
 
 
+
+<script src="https://leancloud.cn/scripts/lib/av-0.4.6.min.js"></script>
+  <script>AV.initialize("3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz", "5tSP0TC77zwNzgp9q9We0T7o");</script>
 
 <script>
     (function(){
@@ -489,7 +492,7 @@ logP(x)&=\int_zQ(z|x)[logP(z)+logP(x|z)-logP(z|x)]\\
 <p>Minimizing this term means roughly small $\mu_i$, and $\sigma_i$ close to 0. Note that we use $\exp(\sigma_i/2)$ for our variance, so actually we are making Q(z|x) close to $\mathcal{N}(0,1)$. </p>
 <p><img src="https://i.loli.net/2020/03/03/V9jxlkBtEzewDXF.png" alt="下载 2.png"></p>
 </li>
-<li><p>$\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]$ takes a form of an autoencoder. Because computing this expectation means to sample a z from Q(z|x) and compute logP(x|z). Q is \’encoding\’ x into z, P is \’decoding\’ z to reconstruct x. Higher expectation value means closer distance between the reconstructed $\hat{x}$ and the original $x$ in the high-dimensional space of x.</p>
+<li><p>$\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]$ takes a form of an autoencoder. Because computing this expectation means to sample a z from Q(z|x) and compute logP(x|z). Q is ‘encoding’ x into z, P is ‘decoding’ z to reconstruct x. Higher expectation value means closer distance between the reconstructed $\hat{x}$ and the original $x$ in the high-dimensional space of x.</p>
 <p>Specifically, this term is computed as follows: </p>
 <p>First, encode x into the latent space($\mu(x,\theta_1)$). Then, add a noise ($\sigma(x,\theta_2)$) to the latent representation, to derive z. Then use the decoder to reconstruct a $\hat{x}$. Finally, compute the loss between $\hat{x}$ and x. </p>
 </li>
@@ -716,8 +719,7 @@ logP(x)&=\int_zQ(z|x)[logP(z)+logP(x|z)-logP(z|x)]\\
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="http://dn-lbstatics.qbox.me/bususnzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -931,7 +933,7 @@ setInterval("createtime()",250);
         notify: true,
         appId: '3zxLh2nJ8VRMi0tSbF4dp79T-gzGzoHsz',
         appKey: '5tSP0TC77zwNzgp9q9We0T7o',
-        placeholder: '来啊！互相交流啊！',
+        placeholder: '来啊！互相交流哇！',
         avatar:'mm',
         guest_info:['nick'] ,
         pageSize:'10' || 10,
