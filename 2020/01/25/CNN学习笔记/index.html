@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,CNN,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CNN(Convolutional Neural Network)Main Task训练一个 classifier，进行模式识别（判别图片上的人是男人 or 女人等等） （这个 classifier 实际上是一个多层 NN，即 CNN。输出只有 -1（正例） 或 1（负例），本质上每一个neuron 都代表着一个二分类器，超过阈值被激活则说明在这个 pattern 上符合正例的某个 pattern">
+<meta name="keywords" content="深度学习,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN学习笔记">
+<meta property="og:url" content="http://zarzard.com/2020/01/25/CNN学习笔记/index.html">
+<meta property="og:site_name" content="Zarzard&#39;s backyard">
+<meta property="og:description" content="CNN(Convolutional Neural Network)Main Task训练一个 classifier，进行模式识别（判别图片上的人是男人 or 女人等等） （这个 classifier 实际上是一个多层 NN，即 CNN。输出只有 -1（正例） 或 1（负例），本质上每一个neuron 都代表着一个二分类器，超过阈值被激活则说明在这个 pattern 上符合正例的某个 pattern">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/AInyY7VvfWNjlbm.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/ureUOL5ZFQGDtiv.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/bXy1l8TYG2wxfKR.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/asd9mhqRzLYIXU2.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/3Hn6KrRCQIDEk2Z.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/u7cwDnUNQ5LyJCt.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/ureUOL5ZFQGDtiv.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/KPmk3xozqIZpFuw.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/McUqnCSxbNdm9tO.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/HnONRhzQDxMckW1.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/djFXAp26Pm189ha.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/LIabjwXdkFYBlzV.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/OgCkjsdxBAitXFN.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/Xzu3EWS5widaO4m.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/1whbL4zcqk5rGUZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/DApE6e9nmKGQcw2.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/qYMSXConEkU1a3I.png">
+<meta property="og:image" content="https://i.loli.net/2020/01/25/sbHzX8igFyBjf61.png">
+<meta property="og:image" content="d:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.3_conv_1x1.svg">
+<meta property="og:updated_time" content="2020-04-11T12:22:13.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CNN学习笔记">
+<meta name="twitter:description" content="CNN(Convolutional Neural Network)Main Task训练一个 classifier，进行模式识别（判别图片上的人是男人 or 女人等等） （这个 classifier 实际上是一个多层 NN，即 CNN。输出只有 -1（正例） 或 1（负例），本质上每一个neuron 都代表着一个二分类器，超过阈值被激活则说明在这个 pattern 上符合正例的某个 pattern">
+<meta name="twitter:image" content="https://i.loli.net/2020/01/25/AInyY7VvfWNjlbm.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zarzard.com/2020/01/25/CNN学习笔记/">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('猜得出来算我输：') !== ''){
+                alert('错啦！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title>CNN学习笔记 | Zarzard's backyard</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zarzard's backyard</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I'm just a tiny walker, wondering in this beautiful world.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zarzard.com/2020/01/25/CNN学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zarzard Wu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zarzard's backyard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-25T15:23:45+08:00">
+                2020-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/深度学习/CNN/" itemprop="url" rel="index">
+                    <span itemprop="name">CNN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/25/CNN学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/25/CNN学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/01/25/CNN学习笔记/" class="leancloud_visitors" data-flag-title="CNN学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CNN-Convolutional-Neural-Network"><a href="#CNN-Convolutional-Neural-Network" class="headerlink" title="CNN(Convolutional Neural Network)"></a>CNN(Convolutional Neural Network)</h1><h2 id="Main-Task"><a href="#Main-Task" class="headerlink" title="Main Task"></a>Main Task</h2><p>训练一个 classifier，进行模式识别（<strong>判别</strong>图片上的人是男人 or 女人等等）</p>
+<p>（这个 classifier 实际上是一个多层 NN，即 CNN。输出只有 -1（正例） 或 1（负例），本质上每一个neuron 都代表着一个二分类器，超过阈值被激活则说明在这个 pattern 上符合正例的某个 pattern）</p>
+<h2 id="Basic-Process"><a href="#Basic-Process" class="headerlink" title="Basic Process"></a>Basic Process</h2><p>raw image $\rightarrow$ Convolution $\rightarrow$ Max_pooling $\rightarrow$ Convolution $\rightarrow$ Max_pooling $\rightarrow\cdots$ </p>
+<p>$\rightarrow$ Flatten (变成普通的 fully connected NN)</p>
+<p>$\rightarrow$ Fully connected feed-forward network</p>
+<a id="more"></a>
+
+
+
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Naive image classifier：把每一个像素都当成一个 feature。</p>
+<p>问题：待学习 param 的数量过多，即权重矩阵维数过大（实际上，光是连接 input layer 与 第一个 hidden layer 的轴突数量就是图像矩阵维数的好几倍了）</p>
+<h2 id="Observation（Why-CNN-works"><a href="#Observation（Why-CNN-works" class="headerlink" title="Observation（Why CNN works?)"></a>Observation（Why CNN works?)</h2><ul>
+<li>例子1：对于一个图像分类问题：判断是男人还是女人。一些神经元负责判断头发长短，另一些神经元负责判断胸部特征（以上这两个都称为”pattern”），那么这些神经元并不需要 input layer 的全部像素，而只需要局部的像素来帮助 classify；</li>
+<li>例子2：在上一个例子的基础上，再来一张图片（长发女人的）判断男女，如果上一张图片也是女人而且也是长头发，但是在图片中的相对位置不一样，那么我们希望能用到上一张的判断结果;；</li>
+<li>例子3：间隔抽去图像像素矩阵的各行，仍然能判断出图像的物体是什么。</li>
+</ul>
+<h2 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h2><p>首先总结上述 Observation：</p>
+<ol>
+<li>Some patterns are much smaller than the whole image;</li>
+<li>A pattern appear in several images, but in different locations of each image;</li>
+<li>Subsampling the pixels will not change the object in the images.</li>
+</ol>
+<p>对于 1, 2 两点，我们用 Convolution 来做；对于 3，用 Max_pooling.</p>
+<p><strong>（两个操作都是在减少 fully connected 的 naive image classifier 中的待学习参数）</strong></p>
+<h3 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h3><h4 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h4><p>对一个 6*6 的 pixel 矩阵，用一个 3*3 （3 是 hyper param）的 filter（其上各个元素是模型参数，即待学习参数）在 pixel 矩阵上移动(stride)，依次与重叠的部分做欧式内积（把矩阵展成向量做内积），得到一个 4*4 的矩阵</p>
+<h4 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h4><p>以黑白图像（二维 tensor）为例，每一个 filter 都是需要学习出来的 neuron，代表了一个大小为 3<em>3（针对这个例子）的 *</em>pattern<strong>，并可以作为一个 classifier 用来 **侦测</strong> 这个 pattern。</p>
+<p>怎么侦测呢？pixel 矩阵中，0 代表 黑，1 代表 白；filter 中的 1 代表正例，-1 代表负例。那么通过 filter 与重叠部分的点乘后累加，得到的值越大（最理想的是 1 与 1 完全重叠，-1 与 0 完全重叠），说明这个部分的 pixel 矩阵越符合这个 pattern 。</p>
+<p><img src="https://i.loli.net/2020/01/25/AInyY7VvfWNjlbm.png" alt="下载 _7_.png"></p>
+<p>把整个 pixel 矩阵拉成一个 vec，看成 input layer；把 filter 处理后的 6*6 矩阵看成第一层 hidden layer，把 filter 各个元素看成 input layer 与 hidden layer 之间的 weights（见下图），则实际上 Convolution 这个操作就是构造一个 not fully connected 的神经网络 .</p>
+<p><img src="https://i.loli.net/2020/01/25/ureUOL5ZFQGDtiv.png" alt="下载 _2_.png"></p>
+<p><strong>注：</strong></p>
+<ul>
+<li><p><strong>用维数比 pixel 矩阵小得多的 filter，体现的是第一个 Obser</strong></p>
+</li>
+<li><p><strong>用这个 filter 在 pixel 矩阵上 stride，侦测这张图上不同地方有没有这个 pattern，体现的是第二个 Obser</strong></p>
+</li>
+<li><p>当然，实际做的时候，每一层的 neuron 都不是只由一个 filter 得到的，而是多个 filter 得到的叠加起来，称为 “feature map”。这样得到的 “feature map”可看成一个根据某个 pattern 得到的压缩图片，只是这个 pixel 矩阵是有“深度”的，这个深度就是 filter 的数量（如下图深度为 2 ，说明用了两个 filter）</p>
+<p><img src="https://i.loli.net/2020/01/25/bXy1l8TYG2wxfKR.png" alt="下载 _8_.png"></p>
+</li>
+</ul>
+<h3 id="Max-pooling"><a href="#Max-pooling" class="headerlink" title="Max_pooling"></a>Max_pooling</h3><h4 id="HOW-1"><a href="#HOW-1" class="headerlink" title="HOW"></a>HOW</h4><p>对上面每一个 filter 得到的 4*4 矩阵，取一个 2*2（2是 hyper param）的小方格，在上面移动（当然这次与 convolution 不同，每次重叠部分不相交），依次取重叠部分中最大的那个元素，作为小方格中四个元素的代表，得到一个 2*2 的矩阵</p>
+<p><img src="https://i.loli.net/2020/01/25/asd9mhqRzLYIXU2.png" alt="下载 _10_.png"></p>
+<p><img src="https://i.loli.net/2020/01/25/3Hn6KrRCQIDEk2Z.png" alt="下载 _11_.png"></p>
+<p><img src="https://i.loli.net/2020/01/25/u7cwDnUNQ5LyJCt.png" alt="下载 _9_.png"></p>
+<h4 id="WHY-1"><a href="#WHY-1" class="headerlink" title="WHY"></a>WHY</h4><p>这是一种 subsampling。每个小框内只使用最“像”该 pattern 的元素作为训练样本（把 input layer $\rightarrow$ first hidden layer 的过程看成 subsampling 预处理）</p>
+<h3 id="fully-connected-VS-convolution"><a href="#fully-connected-VS-convolution" class="headerlink" title="fully connected VS convolution"></a>fully connected VS convolution</h3><ul>
+<li>convolution 减少了神经元的连接数(即 fully connected 的边数)，减至 filter 矩阵(m<em>n维) 的 size（即mn)。每个 neuron 只连接与它做欧式内积的，图像上的一个 m\</em>n 维 pixel 矩阵；</li>
+<li><strong>Weight(filter) Sharing：</strong>每一层各个神经元的 <strong>weight 的数量</strong>以及 <strong>weight 本身的数值</strong>（即 filter）是<strong>相同</strong>的，不同的只有连接的神经元 </li>
+</ul>
+<p><img src="https://i.loli.net/2020/01/25/ureUOL5ZFQGDtiv.png" alt="下载 _2_.png"></p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p><img src="https://i.loli.net/2020/01/25/KPmk3xozqIZpFuw.png" alt="下载 _12_.png"></p>
+<ol>
+<li><p>第一个 Convolution 得到的是一个 25*26*26 的 tensor（如果考虑边缘的化要在外围补充一圈？）</p>
+</li>
+<li><p>第一个 Max_pooling 得到的是一个 25*13*13 的 tensor</p>
+</li>
+<li><p>下面假设第二个 Convolution 的操作为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mode12.add(conv2d(<span class="number">50</span>,<span class="number">3</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>（注意！由于前一层得到的是一个深度为 25 的 tensor，所以第二个 Convolution 使用的 filter 要相应地有 25 的深度。于是这第二层每一个 filter 的 param 的数量为 3*3*25，即 225 个 ）</strong></p>
+<p>那么第二个 Convolution 会得到一个 50*11*11 的 tensor</p>
+</li>
+<li><p>第二个 Max_pooling 与第一个类似</p>
+</li>
+<li><p>反复做 Convolution 与 Max_pooling，假设最终得到一个 50*5*5 的 tensor。接下来的一步是 <code>flatten</code> ：把这个 tensor 拉成一个 vec，丢进一个 fully connected NN 里面去，每一维作为 input layer 的一个 neuron 去训练即可</p>
+</li>
+</ol>
+<h2 id="Intuitions"><a href="#Intuitions" class="headerlink" title="Intuitions"></a>Intuitions</h2><p><img src="https://i.loli.net/2020/01/25/McUqnCSxbNdm9tO.png" alt="下载 _13_.png"></p>
+<p>每一个 filter 代表了一个局部的 pattern，所以<strong>让这个 filter 最 activate 的图片就是这种不断重复这种 pattern（其实就是某种纹路）图片</strong>。不同的 filter 负责 detect 不同角度的纹路。</p>
+<p><img src="https://i.loli.net/2020/01/25/HnONRhzQDxMckW1.png" alt="下载 _14_.png"></p>
+<p>与 Convolution 不同，由于 Flatten 后 Hidden layer 里的每一个 neuron 与输入层是 fully connected 的，这意味着 Hidden layer 里的每一个 neuron 代表的都是与原始图片一样大的 pattern。即：<strong>使每一个 neuron 最 activate 的图片是其对应的一个整体的 pattern</strong>。</p>
+<p><img src="https://i.loli.net/2020/01/25/djFXAp26Pm189ha.png" alt="mnist.png"></p>
+<p>若考虑最终的 output layer（本例为数字 0~9），那么使某一个 output layer 的 neuron 最 activate 的是不是就是与该数字很像的 input 呢？</p>
+<p><img src="https://i.loli.net/2020/01/25/LIabjwXdkFYBlzV.png" alt="下载 _15_.png"></p>
+<p>如上图，并不是。机器看到的和我们看到的并不一样。</p>
+<p>那么我们可以加一个 loss，来使得图中的白色（即 1）尽量少，使得它更像我们人类看到的数字（一张图只有很少一部分会有笔画，即白色很少）：</p>
+<p><img src="https://i.loli.net/2020/01/25/OgCkjsdxBAitXFN.png" alt="下载 _17_.png"></p>
+<p>可以加不同的 loss 来达到不同的目的：</p>
+<p>比如 deep dream，可以从一张图片出发，generate 出”以机器的眼光看到的这张图片“；</p>
+<p><img src="https://i.loli.net/2020/01/25/Xzu3EWS5widaO4m.png" alt="下载 _18_.png"></p>
+<p><img src="https://i.loli.net/2020/01/25/1whbL4zcqk5rGUZ.png" alt="下载 _19_.png"></p>
+<p>又比如 deep style，可以从两张图片出发，generate 出其中一张的原图加上另一张的 style（可以理解为相邻 pixel 之间的关系）的图片：</p>
+<p><img src="https://i.loli.net/2020/01/25/DApE6e9nmKGQcw2.png" alt="下载 _20_.png"></p>
+<h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><p><em>（<strong>关键</strong>是满不满足 Observation 里面的那些性质）</em></p>
+<p><em>（<strong>关键</strong>是满不满足 Observation 里面的那些性质）</em></p>
+<p><em>（<strong>关键</strong>是满不满足 Observation 里面的那些性质）</em></p>
+<h3 id="围棋"><a href="#围棋" class="headerlink" title="围棋"></a>围棋</h3><p>为什么可以用？因为围棋自然可以看成 19*19 的 image，并且关键是：也具备上面 Observation 1, 2 的特点。不过由于没有第三个特点，所以不能用 subsampling。</p>
+<h3 id="声音处理（判别）"><a href="#声音处理（判别）" class="headerlink" title="声音处理（判别）"></a>声音处理（判别）</h3><p>看频谱（纵轴为频率，横轴为时间）</p>
+<p>只需要在纵轴方向 stride filter 即可，因为 tempo 方面后面会有 LTSM 等等来做，而频率方面可以有类似于图像的 “pattern”，如：男生女生说同一句话可以只是在音高上不一样，但是其只是差一个八度那样子，频率的“形状”是一样的。</p>
+<p><img src="https://i.loli.net/2020/01/25/qYMSXConEkU1a3I.png" alt="下载 _5_.png"></p>
+<h3 id="文本处理（判别感情正负）"><a href="#文本处理（判别感情正负）" class="headerlink" title="文本处理（判别感情正负）"></a>文本处理（判别感情正负）</h3><p>为什么 text 也可以处理成一个矩阵呢？把每个 word embedding 合起来就变成了一个矩阵！</p>
+<p>那么这里的 filter 长啥样？要怎么 stride 它呢？</p>
+<p><img src="https://i.loli.net/2020/01/25/sbHzX8igFyBjf61.png" alt="下载 _6_.png"></p>
+<p>答案是：把 filter 取成高度为 embedding 的维数的矩阵，只在句子方向移动 filter 。</p>
+<p>为什么不在 embedding 的各 dimension 之间找 pattern 呢？</p>
+<p>因为在 word2vec 里面， vec 的各个维度其实是 independent 的，相互之间没有依赖性（对比图像中的车子的像素之间显然是有 dependence 的），也就没有 pattern。而我们用CNN是为了找到 pattern 以判断整个 text 的感情正负，所以不用这个方向的移动。</p>
+<h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>定义：在CNN 中，每一层的输出由输入的某些部分生成（比如左上角的一个，由输入的左上4个和卷积核做互相关运算得到），这些部分称为“x 在 （输入）上的感受野”。</p>
+<h2 id="Padding-填充"><a href="#Padding-填充" class="headerlink" title="Padding(填充)"></a>Padding(填充)</h2><p>在原图的周围添加数行0（具体多少行看卷积核，比卷积核长宽各少一就对了），使得输入和输出具有相同的高和宽</p>
+<h2 id="Channels"><a href="#Channels" class="headerlink" title="Channels"></a>Channels</h2><p>若卷积核（filter）使用和输入相同的channels数，即形状为 c*h*w，那么输出就是一个channel（各层卷积后对应相加）</p>
+<p>如果想要得到多个channel的输出，那么就需要对 filter 多加一个维度，c1*c*h*w，每个 c*h*w 得到一个输出 channel，则 c1 个 c*h*w 得到 c1 个输出 channel 。</p>
+<h2 id="1-times-1卷积层"><a href="#1-times-1卷积层" class="headerlink" title="1$\times$1卷积层"></a>1$\times$1卷积层</h2><p>用处：改变通道数</p>
+<p>例子：</p>
+<p><code>input</code>：（3 * 32 * 32)的特征图，1$\times$1卷积层的参数 $c_{out}$ (即目标输出的 通道数)</p>
+<p>1$\times$1卷积层：($c_{out}$* 3 * 32 * 32)</p>
+<p><img src="D:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.3_conv_1x1.svg" alt="5.3_conv_1x1"></p>
+<h1 id="LeNet-的实现"><a href="#LeNet-的实现" class="headerlink" title="LeNet 的实现"></a>LeNet 的实现</h1><ol>
+<li><p>网络结构：</p>
+<ol>
+<li><p>卷积 - 池化层：</p>
+<p>conv(?)d $\rightarrow$ activate $\rightarrow$ maxpool(?)d</p>
+<p>对以上过程循环几遍（当然卷积核和池化核的大小每次会变一下）</p>
+</li>
+<li><p>全连接层：（与普通 mlp 没有区别）</p>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h1><p>在 LeNet 的基础上加深网络，提高通道数</p>
+<h1 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h1><p>也是与前两个一样的路数</p>
+<h1 id="NiN"><a href="#NiN" class="headerlink" title="NiN"></a>NiN</h1><ul>
+<li>把最后的全连接层换成 1*1 平均池化层来减少通道数，最后再 flatten 连接到分类层（输出为分类数）</li>
+</ul>
+<h1 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/24/PyTorch-学习笔记1-autograd/" rel="next" title="PyTorch 学习笔记1 -- backward">
+                <i class="fa fa-chevron-left"></i> PyTorch 学习笔记1 -- backward
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/27/《写出我心》-读书笔记-Ver-1/" rel="prev" title="《写出我心》读书笔记 Ver 1">
+                《写出我心》读书笔记 Ver 1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg" alt="Zarzard Wu">
+            
+              <p class="site-author-name" itemprop="name">Zarzard Wu</p>
+              <p class="site-description motion-element" itemprop="description">Zarzard的个人博客，记录一些胡思乱想，做点学习笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN-Convolutional-Neural-Network"><span class="nav-number">1.</span> <span class="nav-text">CNN(Convolutional Neural Network)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Task"><span class="nav-number">1.1.</span> <span class="nav-text">Main Task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Process"><span class="nav-number">1.2.</span> <span class="nav-text">Basic Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.3.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observation（Why-CNN-works"><span class="nav-number">1.4.</span> <span class="nav-text">Observation（Why CNN works?)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Idea"><span class="nav-number">1.5.</span> <span class="nav-text">Idea</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convolution"><span class="nav-number">1.5.1.</span> <span class="nav-text">Convolution</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HOW"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">HOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHY"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">WHY</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Max-pooling"><span class="nav-number">1.5.2.</span> <span class="nav-text">Max_pooling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HOW-1"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">HOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHY-1"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">WHY</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fully-connected-VS-convolution"><span class="nav-number">1.5.3.</span> <span class="nav-text">fully connected VS convolution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">1.6.</span> <span class="nav-text">Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intuitions"><span class="nav-number">1.7.</span> <span class="nav-text">Intuitions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Applications"><span class="nav-number">1.8.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#围棋"><span class="nav-number">1.8.1.</span> <span class="nav-text">围棋</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声音处理（判别）"><span class="nav-number">1.8.2.</span> <span class="nav-text">声音处理（判别）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本处理（判别感情正负）"><span class="nav-number">1.8.3.</span> <span class="nav-text">文本处理（判别感情正负）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感受野"><span class="nav-number">1.9.</span> <span class="nav-text">感受野</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Padding-填充"><span class="nav-number">1.10.</span> <span class="nav-text">Padding(填充)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Channels"><span class="nav-number">1.11.</span> <span class="nav-text">Channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-times-1卷积层"><span class="nav-number">1.12.</span> <span class="nav-text">1$\times$1卷积层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LeNet-的实现"><span class="nav-number">2.</span> <span class="nav-text">LeNet 的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AlexNet"><span class="nav-number">3.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VGG"><span class="nav-number">4.</span> <span class="nav-text">VGG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NiN"><span class="nav-number">5.</span> <span class="nav-text">NiN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">6.</span> <span class="nav-text">GoogLeNet</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="http://dn-lbstatics.qbox.me/bususnzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zarzard Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+
+<span id="timeDate">loading...</span><span id="times">loading...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("8/16/2019 12:00:00");//在此处修改建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "<br>"+" Runing "+dnum+" Days "; 
+        document.getElementById("times").innerHTML = hnum + " Hours " + mnum + " Minutes " + snum + " Seconds"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<div align="middle">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278188146'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1278188146%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz',
+        appKey: 'iNsrHfUKIlqKSx5sMCG6PS8S',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("3S7F7JEBg6HoIjM7l7XUST75-gzGzoHsz", "iNsrHfUKIlqKSx5sMCG6PS8S");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"model":null,"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"superSample":2,"width":180,"height":360,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>

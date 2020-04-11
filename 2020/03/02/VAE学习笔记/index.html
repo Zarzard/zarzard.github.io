@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="VAE,深度学习,">
+  <meta name="keywords" content="深度学习,VAE,">
 
 
 
@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="Variational Auto-Encoder">
-<meta name="keywords" content="VAE,深度学习">
+<meta name="description" content="Variational Auto-EncoderAn outline of VAENN structureinput:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE] hidden:  activate,  and derivate a  ($\mu(x),\sigma(x) $)  for every sample x">
+<meta name="keywords" content="深度学习,VAE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VAE学习笔记">
 <meta property="og:url" content="http://zarzard.com/2020/03/02/VAE学习笔记/index.html">
 <meta property="og:site_name" content="Zarzard&#39;s backyard">
-<meta property="og:description" content="Variational Auto-Encoder">
+<meta property="og:description" content="Variational Auto-EncoderAn outline of VAENN structureinput:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE] hidden:  activate,  and derivate a  ($\mu(x),\sigma(x) $)  for every sample x">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/EtckiWHCBwYA2GS.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/VR8briEWK5Tavy2.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/JcrQoOs1RNvKACe.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/03/V9jxlkBtEzewDXF.png">
-<meta property="og:updated_time" content="2020-03-26T13:10:55.001Z">
+<meta property="og:updated_time" content="2020-04-11T12:23:28.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VAE学习笔记">
-<meta name="twitter:description" content="Variational Auto-Encoder">
+<meta name="twitter:description" content="Variational Auto-EncoderAn outline of VAENN structureinput:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE] hidden:  activate,  and derivate a  ($\mu(x),\sigma(x) $)  for every sample x">
 <meta name="twitter:image" content="https://i.loli.net/2020/03/03/EtckiWHCBwYA2GS.png">
 
 
@@ -439,12 +439,12 @@
       
 
       
-        <h1 id="Variational-Auto-Encoder"><a href="#Variational-Auto-Encoder" class="headerlink" title="Variational Auto-Encoder"></a>Variational Auto-Encoder</h1><a id="more"></a>
-
-<h2 id="An-outline-of-VAE"><a href="#An-outline-of-VAE" class="headerlink" title="An outline of VAE"></a>An outline of VAE</h2><h3 id="NN-structure"><a href="#NN-structure" class="headerlink" title="NN structure"></a><em>NN structure</em></h3><p><code>input</code>:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE]</p>
+        <h1 id="Variational-Auto-Encoder"><a href="#Variational-Auto-Encoder" class="headerlink" title="Variational Auto-Encoder"></a>Variational Auto-Encoder</h1><h2 id="An-outline-of-VAE"><a href="#An-outline-of-VAE" class="headerlink" title="An outline of VAE"></a>An outline of VAE</h2><h3 id="NN-structure"><a href="#NN-structure" class="headerlink" title="NN structure"></a><em>NN structure</em></h3><p><code>input</code>:  a batch of data whose dimension is [ INPUT_SIZE * BATCH_SIZE]</p>
 <p><code>hidden</code>:  activate,  and derivate a  ($\mu(x),\sigma(x) $)  for every sample x</p>
 <p><code>sample</code>:  sample an $\epsilon$ from $\mathcal{N}(0,I)$ , derive the latent representation of x (plus a learned noise) : $z=\mu+\sigma\cdot\epsilon$ </p>
 <p><code>output</code>:  activate, and reconstruct an $\hat{x}$ for x</p>
+<a id="more"></a>
+
 <p><img src="https://i.loli.net/2020/03/03/EtckiWHCBwYA2GS.png" alt="下载21.png"></p>
 <h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function:"></a><em>Loss function:</em></h3><p>$\mathcal{L}=reconstruct\ error+kl\ error$</p>
 <p>$reconstruct\ error=cross\ entropy(\hat{x}, x)$</p>
@@ -508,9 +508,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/VAE/" rel="tag"># VAE</a>
-          
             <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/VAE/" rel="tag"># VAE</a>
           
         </div>
       
@@ -523,7 +523,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/29/图片/RNN学习笔记/" rel="next" title="RNN学习笔记">
+              <a href="/2020/02/29/RNN学习笔记/" rel="next" title="RNN学习笔记">
                 <i class="fa fa-chevron-left"></i> RNN学习笔记
               </a>
             
@@ -617,7 +617,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -628,7 +628,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -639,7 +639,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
