@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="Zarzard&#39;s backyard">
 <meta property="og:description" content="ResNet">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="d:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.11_residual-block.svg">
+<meta property="og:image" content="d:/Dive-into-DL-PyTorch/docs/img/chapter05/5.11_residual-block.svg">
 <meta property="og:updated_time" content="2020-04-11T12:17:56.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet学习笔记">
 <meta name="twitter:description" content="ResNet">
-<meta name="twitter:image" content="d:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.11_residual-block.svg">
+<meta name="twitter:image" content="d:/Dive-into-DL-PyTorch/docs/img/chapter05/5.11_residual-block.svg">
 
 
 
@@ -437,7 +437,6 @@
 
       
         <h1 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h1><a id="more"></a>
-
 <p>时间有限，先写这么多</p>
 <h2 id="其动机"><a href="#其动机" class="headerlink" title="其动机"></a>其动机</h2><p><strong>理论上，原模型解的空间只是新模型解的空间的子空间。也就是说，如果我们能将新添加的层训练成恒等映射$f(x) = x$，新模型和原模型将同样有效</strong>。所以想添加更多的层，来提高拟合效果。但实践中发现层不是越多越好的。</p>
 <h2 id="其做法"><a href="#其做法" class="headerlink" title="其做法"></a>其做法</h2><ol>
@@ -450,7 +449,7 @@
 <li>最后和 GoogLeNet 一样，接上全局平均池化层（对每个位置进行所有通道平均）后，展平接全连接层输出分类</li>
 </ol>
 <p>那么 Residual 又是啥玩意呢？就是右边那个</p>
-<p><img src="D:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.11_residual-block.svg" alt="5.11_residual-block"></p>
+<p><img src="D:\Dive-into-DL-PyTorch\docs\img\chapter05\5.11_residual-block.svg" alt="5.11_residual-block"></p>
 <h2 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h2><p>仿佛是被蒙上双眼，由作者带路，左拐右拐，上上下下，走过了几百个迷宫，到达了目的地。虽然到达的了，但如果没有作者引路，自己并不知道其中的路怎么走，哪里为什么要左拐，哪里又为什么要下楼梯。</p>
 <p><strong>残差映射在实际中往往更容易优化</strong></p>
 <p>即的拟合 $f(\boldsymbol{x})-\boldsymbol{x}$ 比拟合 $f(\boldsymbol{x})$ 更好</p>

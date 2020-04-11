@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  512
+                  511
                 </span>
               
 
@@ -426,18 +426,15 @@
         <h1 id="backward"><a href="#backward" class="headerlink" title="backward()"></a>backward()</h1><p><strong>注意：</strong>只能做 scalar 对 tensor 求导，不能做多维 tensor 对 tensor 求导！！</p>
 <p><strong>基本用法</strong>：</p>
 <a id="more"></a>
-
 <ul>
-<li>loss 为 scalar（即只有一个元素的 tensor，非向量）时，直接使用 <code>loss.backward()</code> 即可（<strong>这里的 loss 是指某一次前向传播得到的具体的损失，是一个具体的数 $loss_0$）</strong>。意思是对本次 <code>loss</code> 的计算过程中所有的 <code>requires_grad=True</code> 的变量（即模型待学习参数）$\ \theta_1,…,\theta_n$求偏导并代入此次的 loss 值 $\frac{\partial loss}{\partial\theta_n}|_{loss=loss_0}$，最后输出向量</li>
+<li>loss 为 scalar（即只有一个元素的 tensor，非向量）时，直接使用 <code>loss.backward()</code> 即可（<strong>这里的 loss 是指某一次前向传播得到的具体的损失，是一个具体的数 $loss_0$）</strong>。意思是对本次 <code>loss</code> 的计算过程中所有的 <code>requires_grad=True</code> 的变量（即模型待学习参数）$\ \theta<em>1,…,\theta_n$求偏导并代入此次的 loss 值 $\frac{\partial loss}{\partial\theta_n}|</em>{loss=loss_0}$，最后输出向量</li>
 </ul>
-<p>$$<br>(\frac{\partial loss}{\partial \theta_1},\dots,\frac{\partial loss}{\partial\theta_n})|_{loss=loss_0}<br>$$</p>
-<ul>
+<script type="math/tex; mode=display">
+(\frac{\partial loss}{\partial \theta_1},\dots,\frac{\partial loss}{\partial\theta_n})|_{loss=loss_0}</script><ul>
 <li><p>loss为 vector $(l_1,\dots,l_m)$ 时，若要计算 $\frac{\partial (l_1,\dots,l_m)}{\partial(\theta_1,\dots,\theta_n)}$ 不能直接 <code>loss.backward()</code> ！！只能把 $l_1,…l_m$ 做加权，得到一个你实际需要的总 $Loss=k_1l_1+…k_ml_m$ （$\Sigma k_j$ 不一定要等于 1），然后再对这个 $Loss$ 求所有关于 $\theta_j$ 的偏导。此时需要传入参数 <code>loss.backward([k1,...km])</code>  当然这里是一个简略写法，方便阅读，实际操作还需要把 $[k_1,…k_m]$ tensor 化：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">K = torch.tensor([k1,...km], dtype=torch.float)</span><br><span class="line">loss.backward(K)</span><br></pre></td></tr></table></figure>
-
 <p>也可以：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">K = torch.tensor([k1,...km], dtype=torch.float)</span><br><span class="line">Loss = torch.sum(loss * K)</span><br><span class="line">Loss.backward()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="x-grad-fn"><a href="#x-grad-fn" class="headerlink" title="x.grad_fn"></a>x.grad_fn</h2><p>输出：得到 tensor x 运算过程中的最后一次运算</p>

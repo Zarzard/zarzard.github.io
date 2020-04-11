@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  914
+                  916
                 </span>
               
 
@@ -435,18 +435,30 @@
 
       
         <h1 id="Matlab微分方程的数值解法"><a href="#Matlab微分方程的数值解法" class="headerlink" title="Matlab微分方程的数值解法"></a>Matlab微分方程的数值解法</h1><a id="more"></a>
-
 <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>经济学无限复利问题：</p>
-<p>财主提供高利贷，原先每过1天计算一次利息（利息计入借款），利率100%，则第x+1天的负债可以表示为递推式<br>$$<br>f(x+1)=2f(x)<br>$$<br>后来这个贪得无厌的家伙想尽可能多收利息，于是改成半天计算一次利息(利率相应地变成50%，但好处是提前把利息计入借款，利滚利，比之前的一天计一次更多），则<br>$$<br>f(x+0.5)=1.5f(x)<br>$$<br>即<br>$$<br>f(x+1)=(1+\frac{1}{2})^2f(x)=2.25f(x)<br>$$<br>问题：若无限细分时间计算利息，这个递推式怎么写？</p>
-<p>答案：<br>$$<br>f(x+1)=(1+\frac{1}{n})^nf(x)\rightarrow ef(x),\quad n\rightarrow\infin<br>$$</p>
-<h2 id="差分方程的概念"><a href="#差分方程的概念" class="headerlink" title="差分方程的概念"></a>差分方程的概念</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>利用自变量取<strong>固定间隔</strong>的函数值构成的<strong>递推关系</strong>，称为差分方程。一般形式为<br>$$<br>f(x)=F(f(x-1),f(x-2),\dots f(x-n))<br>$$</p>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ol>
-<li>上面无限复利问题中<br>$$<br>f(x+d)=(1+d)f(x)<br>$$<br>是一个一阶常系数线性差分方程（阶数？）</li>
+<p>财主提供高利贷，原先每过1天计算一次利息（利息计入借款），利率100%，则第x+1天的负债可以表示为递推式</p>
+<script type="math/tex; mode=display">
+f(x+1)=2f(x)</script><p>后来这个贪得无厌的家伙想尽可能多收利息，于是改成半天计算一次利息(利率相应地变成50%，但好处是提前把利息计入借款，利滚利，比之前的一天计一次更多），则</p>
+<script type="math/tex; mode=display">
+f(x+0.5)=1.5f(x)</script><p>即</p>
+<script type="math/tex; mode=display">
+f(x+1)=(1+\frac{1}{2})^2f(x)=2.25f(x)</script><p>问题：若无限细分时间计算利息，这个递推式怎么写？</p>
+<p>答案：</p>
+<script type="math/tex; mode=display">
+f(x+1)=(1+\frac{1}{n})^nf(x)\rightarrow ef(x),\quad n\rightarrow\infin</script><h2 id="差分方程的概念"><a href="#差分方程的概念" class="headerlink" title="差分方程的概念"></a>差分方程的概念</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>利用自变量取<strong>固定间隔</strong>的函数值构成的<strong>递推关系</strong>，称为差分方程。一般形式为</p>
+<script type="math/tex; mode=display">
+f(x)=F(f(x-1),f(x-2),\dots f(x-n))</script><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ol>
+<li>上面无限复利问题中<script type="math/tex; mode=display">
+f(x+d)=(1+d)f(x)</script>是一个一阶常系数线性差分方程（阶数？）</li>
 </ol>
 <h2 id="欧拉法"><a href="#欧拉法" class="headerlink" title="欧拉法"></a>欧拉法</h2><ul>
 <li><p>用途：求形如 $y’(x)=f(x,y)$ 的方程的数值解（初值条件为 $y(x_0)=y*$  ）</p>
 </li>
-<li><p>原理：<br>$$<br>y(x_1)=y(x_0)+d\cdot f(x,y(x_0))=y(x_0)+d\cdot y’(x_0)<br>$$<br>一般地，<br>$$<br>y(x_{n+1})=y(x_n)+d\cdot f(x_n,y(x_n))<br>$$<br>其中，d 为试探的步长。</p>
+<li><p>原理：</p>
+<script type="math/tex; mode=display">
+y(x_1)=y(x_0)+d\cdot f(x,y(x_0))=y(x_0)+d\cdot y'(x_0)</script><p>一般地，</p>
+<script type="math/tex; mode=display">
+y(x_{n+1})=y(x_n)+d\cdot f(x_n,y(x_n))</script><p>其中，d 为试探的步长。</p>
 </li>
 <li><p>输入：微分方程式子；步长</p>
 </li>
@@ -455,19 +467,20 @@
 <li><p>代码示例：</p>
 <p>(解方程 $y’(x)=xcos(x)+y/x$)</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">d=<span class="built_in">pi</span>/<span class="number">3e5</span>; <span class="comment">%步长</span></span><br><span class="line">x=<span class="built_in">pi</span>:d:<span class="number">2</span>*<span class="built_in">pi</span>;</span><br><span class="line">y=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="built_in">length</span>(x)); <span class="comment">%数值解的采样点的向量</span></span><br><span class="line">y(<span class="number">1</span>)=<span class="built_in">pi</span>; <span class="comment">%赋初值</span></span><br><span class="line"></span><br><span class="line">f=@(x1,x2) x1.*<span class="built_in">cos</span>(x1)+x2./x1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k=<span class="number">2</span>:<span class="built_in">length</span>(x)</span><br><span class="line">    y(k)=y(k<span class="number">-1</span>)+d*f(x(k<span class="number">-1</span>),y(k<span class="number">-1</span>)); <span class="comment">%欧拉法核心</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">err=<span class="built_in">abs</span>(y(<span class="keyword">end</span>)<span class="number">-2</span>*<span class="built_in">pi</span>);</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">'linewidth'</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="改进欧拉法"><a href="#改进欧拉法" class="headerlink" title="改进欧拉法"></a>改进欧拉法</h2><p>与欧拉法相比，在算法复杂度与欧拉法同阶（耗时约为两倍）的情况下，在相同的步长下，大大提高了（多少）精度。</p>
 <ul>
-<li><p>改进原理：对每一步迭代代入的导数值进行校正，即为了求 $y_{n+1}$，先要用原始欧拉法预估一个 $\bar{y}<em>{n+1}$，然后把这个值代入得到导数校正量 $f(x</em>{n+1},\bar{y}<em>{n+1})$<br>$$<br>y(x</em>{n+1})=y(x_n)+d\cdot\bar{f}(x_n,y_n)<br>$$<br>其中，$\bar{f}$ 为校正后的导数值，计算方法如下：<br>$$<br>\bar{f}(x_n,y_n)=\frac{1}{2}[f(x_n,y_n)+f(x_{n+1},\bar{y}<em>{n+1})]<br>\<br>\bar{y}</em>{n+1}=y_n+d\cdot f(x_n,y_n)<br>$$</p>
-</li>
+<li><p>改进原理：对每一步迭代代入的导数值进行校正，即为了求 $y<em>{n+1}$，先要用原始欧拉法预估一个 $\bar{y}</em>{n+1}$，然后把这个值代入得到导数校正量 $f(x<em>{n+1},\bar{y}</em>{n+1})$</p>
+<script type="math/tex; mode=display">
+y(x_{n+1})=y(x_n)+d\cdot\bar{f}(x_n,y_n)</script><p>其中，$\bar{f}$ 为校正后的导数值，计算方法如下：</p>
+<script type="math/tex; mode=display">
+\bar{f}(x_n,y_n)=\frac{1}{2}[f(x_n,y_n)+f(x_{n+1},\bar{y}_{n+1})]
+\\
+\bar{y}_{n+1}=y_n+d\cdot f(x_n,y_n)</script></li>
 <li><p>代码示例：</p>
 <p>（还是解上面那个方程）</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">d=<span class="built_in">pi</span>/<span class="number">3e5</span>;</span><br><span class="line">x=<span class="built_in">pi</span>:d:<span class="number">2</span>*<span class="built_in">pi</span>;</span><br><span class="line">y=<span class="built_in">zeros</span>(<span class="number">1</span>,<span class="built_in">length</span>(x));</span><br><span class="line">y(<span class="number">1</span>)=<span class="built_in">pi</span>;</span><br><span class="line"></span><br><span class="line">f=@(x1,x2) x1.*<span class="built_in">cos</span>(x1)+x2./x1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k=<span class="number">2</span>:<span class="built_in">length</span>(x)</span><br><span class="line">	temp=y(k<span class="number">-1</span>)+d*f(x(k<span class="number">-1</span>),y(k<span class="number">-1</span>));<span class="comment">%预估值\bar&#123;y&#125;_n</span></span><br><span class="line">	y(k)=y(k<span class="number">-1</span>)+(d/<span class="number">2</span>)*(f(x(k<span class="number">-1</span>),y(k<span class="number">-1</span>))+f(x(k),temp));</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">err=<span class="built_in">abs</span>(y(<span class="keyword">end</span>)<span class="number">-2</span>*<span class="built_in">pi</span>);</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
 <h2 id="一阶常微分方程组的演化（见第八课课件）"><a href="#一阶常微分方程组的演化（见第八课课件）" class="headerlink" title="一阶常微分方程组的演化（见第八课课件）"></a>一阶常微分方程组的演化（见第八课课件）</h2><p>以特征值的正负号来分类：</p>

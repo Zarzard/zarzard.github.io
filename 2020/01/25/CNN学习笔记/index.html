@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/01/25/DApE6e9nmKGQcw2.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/25/qYMSXConEkU1a3I.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/25/sbHzX8igFyBjf61.png">
-<meta property="og:image" content="d:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.3_conv_1x1.svg">
+<meta property="og:image" content="d:/Dive-into-DL-PyTorch/docs/img/chapter05/5.3_conv_1x1.svg">
 <meta property="og:updated_time" content="2020-04-11T12:22:13.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN学习笔记">
@@ -460,9 +460,6 @@
 <p>$\rightarrow$ Flatten (变成普通的 fully connected NN)</p>
 <p>$\rightarrow$ Fully connected feed-forward network</p>
 <a id="more"></a>
-
-
-
 <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Naive image classifier：把每一个像素都当成一个 feature。</p>
 <p>问题：待学习 param 的数量过多，即权重矩阵维数过大（实际上，光是连接 input layer 与 第一个 hidden layer 的轴突数量就是图像矩阵维数的好几倍了）</p>
 <h2 id="Observation（Why-CNN-works"><a href="#Observation（Why-CNN-works" class="headerlink" title="Observation（Why CNN works?)"></a>Observation（Why CNN works?)</h2><ul>
@@ -479,7 +476,7 @@
 <p>对于 1, 2 两点，我们用 Convolution 来做；对于 3，用 Max_pooling.</p>
 <p><strong>（两个操作都是在减少 fully connected 的 naive image classifier 中的待学习参数）</strong></p>
 <h3 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h3><h4 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h4><p>对一个 6*6 的 pixel 矩阵，用一个 3*3 （3 是 hyper param）的 filter（其上各个元素是模型参数，即待学习参数）在 pixel 矩阵上移动(stride)，依次与重叠的部分做欧式内积（把矩阵展成向量做内积），得到一个 4*4 的矩阵</p>
-<h4 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h4><p>以黑白图像（二维 tensor）为例，每一个 filter 都是需要学习出来的 neuron，代表了一个大小为 3<em>3（针对这个例子）的 *</em>pattern<strong>，并可以作为一个 classifier 用来 **侦测</strong> 这个 pattern。</p>
+<h4 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h4><p>以黑白图像（二维 tensor）为例，每一个 filter 都是需要学习出来的 neuron，代表了一个大小为 3<em>3（针对这个例子）的 <strong>pattern</strong>，并可以作为一个 classifier 用来 <em>*侦测</em></em> 这个 pattern。</p>
 <p>怎么侦测呢？pixel 矩阵中，0 代表 黑，1 代表 白；filter 中的 1 代表正例，-1 代表负例。那么通过 filter 与重叠部分的点乘后累加，得到的值越大（最理想的是 1 与 1 完全重叠，-1 与 0 完全重叠），说明这个部分的 pixel 矩阵越符合这个 pattern 。</p>
 <p><img src="https://i.loli.net/2020/01/25/AInyY7VvfWNjlbm.png" alt="下载 _7_.png"></p>
 <p>把整个 pixel 矩阵拉成一个 vec，看成 input layer；把 filter 处理后的 6*6 矩阵看成第一层 hidden layer，把 filter 各个元素看成 input layer 与 hidden layer 之间的 weights（见下图），则实际上 Convolution 这个操作就是构造一个 not fully connected 的神经网络 .</p>
@@ -512,7 +509,6 @@
 </li>
 <li><p>下面假设第二个 Convolution 的操作为</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mode12.add(conv2d(<span class="number">50</span>,<span class="number">3</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-
 <p><strong>（注意！由于前一层得到的是一个深度为 25 的 tensor，所以第二个 Convolution 使用的 filter 要相应地有 25 的深度。于是这第二层每一个 filter 的 param 的数量为 3*3*25，即 225 个 ）</strong></p>
 <p>那么第二个 Convolution 会得到一个 50*11*11 的 tensor</p>
 </li>
@@ -558,7 +554,7 @@
 <p>例子：</p>
 <p><code>input</code>：（3 * 32 * 32)的特征图，1$\times$1卷积层的参数 $c_{out}$ (即目标输出的 通道数)</p>
 <p>1$\times$1卷积层：($c_{out}$* 3 * 32 * 32)</p>
-<p><img src="D:%5CDive-into-DL-PyTorch%5Cdocs%5Cimg%5Cchapter05%5C5.3_conv_1x1.svg" alt="5.3_conv_1x1"></p>
+<p><img src="D:\Dive-into-DL-PyTorch\docs\img\chapter05\5.3_conv_1x1.svg" alt="5.3_conv_1x1"></p>
 <h1 id="LeNet-的实现"><a href="#LeNet-的实现" class="headerlink" title="LeNet 的实现"></a>LeNet 的实现</h1><ol>
 <li><p>网络结构：</p>
 <ol>

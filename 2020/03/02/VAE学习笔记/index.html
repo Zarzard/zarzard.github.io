@@ -444,7 +444,6 @@
 <p><code>sample</code>:  sample an $\epsilon$ from $\mathcal{N}(0,I)$ , derive the latent representation of x (plus a learned noise) : $z=\mu+\sigma\cdot\epsilon$ </p>
 <p><code>output</code>:  activate, and reconstruct an $\hat{x}$ for x</p>
 <a id="more"></a>
-
 <p><img src="https://i.loli.net/2020/03/03/EtckiWHCBwYA2GS.png" alt="下载21.png"></p>
 <h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function:"></a><em>Loss function:</em></h3><p>$\mathcal{L}=reconstruct\ error+kl\ error$</p>
 <p>$reconstruct\ error=cross\ entropy(\hat{x}, x)$</p>
@@ -452,34 +451,52 @@
 <h2 id="Understanding-of-the-formulas"><a href="#Understanding-of-the-formulas" class="headerlink" title="Understanding of the formulas"></a>Understanding of the formulas</h2><p><strong>Key idea: A continuous version of Gaussian Mixture model</strong></p>
 <blockquote>
 <p>Gaussain Mixture Model: </p>
-<p>To approximate P(x), we use a fix quantity of Gaussians, attach a weight to each Gaussian and sum up. The sum is the function we create to approximate P(x).<br>$$<br>P(x)\approx \sum_{m=1}^kw_m\cdot\mathcal{N}(\mu_m,\sigma_m)=\sum_{m=1}^kP(m)\cdot P(x|m)<br>$$<br>When we want to sample from P(x), we can sample from our approximation: Frist there is a multinomial distribution of k Gaussians’ weight, i.e. P(m), which we will sample from. After we derive a m(int) from P(m), we just sample from the corresponding distribution $\mathcal{N}(\mu_m,\sigma_m)$ to derive a sample of x. </p>
+<p>To approximate P(x), we use a fix quantity of Gaussians, attach a weight to each Gaussian and sum up. The sum is the function we create to approximate P(x). </p>
+<script type="math/tex; mode=display">
+P(x)\approx \sum_{m=1}^kw_m\cdot\mathcal{N}(\mu_m,\sigma_m)=\sum_{m=1}^kP(m)\cdot P(x|m)</script><p>When we want to sample from P(x), we can sample from our approximation: Frist there is a multinomial distribution of k Gaussians’ weight, i.e. P(m), which we will sample from. After we derive a m(int) from P(m), we just sample from the corresponding distribution $\mathcal{N}(\mu_m,\sigma_m)$ to derive a sample of x. </p>
 <p><img src="https://i.loli.net/2020/03/03/VR8briEWK5Tavy2.png" alt="下载 22.png"></p>
 </blockquote>
 <hr>
 <hr>
-<h3 id="The-continuous-version-of-Gaussian-Mixture-Model"><a href="#The-continuous-version-of-Gaussian-Mixture-Model" class="headerlink" title="The continuous version of Gaussian Mixture Model:"></a>The continuous version of Gaussian Mixture Model:</h3><p>$$<br>P(x)\approx \int_w\mathcal{N}(w;0,1)\cdot\mathcal{N}(x|w;\mu_w,\sigma_w)dw=\int_zP(z)P(x|z)dz<br>$$</p>
-<p>In contrast to the original discrete version, this version we have infinite Gaussians $\mathcal{N}(\mu_w,\sigma_w)$ to model the objective P(x). Each Gaussian’s weight is the value of the distribution function (e.g. $\mathcal{N}(\mu_{0.1},\sigma_{0.1})$’s weight is the value of the normal distribution at point 0.1). </p>
+<h3 id="The-continuous-version-of-Gaussian-Mixture-Model"><a href="#The-continuous-version-of-Gaussian-Mixture-Model" class="headerlink" title="The continuous version of Gaussian Mixture Model:"></a>The continuous version of Gaussian Mixture Model:</h3><script type="math/tex; mode=display">
+P(x)\approx \int_w\mathcal{N}(w;0,1)\cdot\mathcal{N}(x|w;\mu_w,\sigma_w)dw=\int_zP(z)P(x|z)dz</script><p>In contrast to the original discrete version, this version we have infinite Gaussians $\mathcal{N}(\mu<em>w,\sigma_w)$ to model the objective P(x). Each Gaussian’s weight is the value of the distribution function (e.g. $\mathcal{N}(\mu</em>{0.1},\sigma_{0.1})$’s weight is the value of the normal distribution at point 0.1). </p>
 <p>When we want to sample from P(x), we can first sample a z from P(z) (usually $\mathcal{N}(0,1)$, due to convinience), then sample the corresponding distribution,  $x|z\sim\mathcal{N}(\mu_z,\sigma_z)$, i.e. $\mathcal{N}(\mu(z),\sigma(z))$ , to derive x.</p>
 <p><img src="https://i.loli.net/2020/03/03/JcrQoOs1RNvKACe.png" alt="下载 23.png"></p>
-<h3 id="The-Objective"><a href="#The-Objective" class="headerlink" title="The Objective"></a>The Objective</h3><p>So, our object is to maximize the likehood of the observations, i.e.<br>$$<br>\sum logP(x)=\sum log\int_zP(z)P(x|z)dz<br>$$<br>In practice, for most of the z, P(x|z) will be nearly zero. Therefore, another <strong>core idea</strong> of VAE comes: We would like to sample z that are likely to have produced x, and compute P(x) just from those. This means we need P(z|x). </p>
-<p>But the posterior P(z|x) is not tractable. So we use Q(z|x) to approximate P(z|x), implemented by a NN(the encoder). Let’s relate $Q(z|x)$ and P(x) :<br>$$<br>P(x)=\int_zQ(z|x)P(x)dz<br>$$<br>Use the Bayes formula, we can derive<br>$$<br>\begin{align}<br>logP(x)&amp;=\int_zQ(z|x)[logP(z)+logP(x|z)-logP(z|x)]\<br>&amp;=\int_zQ(z|x)[logP(z)+logP(x|z)-log(Q(z|x))]dz+KL[Q(z|x)||P(z|x)]\<br>&amp;\geq\int_zQ(z|x)[logP(z)+logP(x|z)-log(Q(z|x))]dz\<br>&amp;=\mathbb{E}_{z\sim Q}[logP(x|z)]-KL[Q(z|x)||P(z)]<br>\end{align}<br>$$</p>
-<p>Maximize P(x) is to maximize $\mathbb{E}_{z\sim Q}[logP(x|z)]$ while minimize $KL[Q(z|x)||P(z)]$ . </p>
-<p>Therefore, our Loss function(what we’d like to minimize) can be defined as follows:<br>$$<br>\begin{align}<br>\mathcal{L}&amp;=KL[Q(z|x)||P(z)]-\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]\<br>&amp;=KL[Q(z|x)||P(z)]+cross_entropy[Q(z|x),P(x|z)]<br>\end{align}<br>$$</p>
-<ul>
-<li><p>$KL[Q(z|x)||P(z)]$ is somewhat a &#39;distance&#39; between Q(z|x) and P(z). </p>
+<h3 id="The-Objective"><a href="#The-Objective" class="headerlink" title="The Objective"></a>The Objective</h3><p>So, our object is to maximize the likehood of the observations, i.e.</p>
+<script type="math/tex; mode=display">
+\sum logP(x)=\sum log\int_zP(z)P(x|z)dz</script><p>In practice, for most of the z, P(x|z) will be nearly zero. Therefore, another <strong>core idea</strong> of VAE comes: We would like to sample z that are likely to have produced x, and compute P(x) just from those. This means we need P(z|x). </p>
+<p>But the posterior P(z|x) is not tractable. So we use Q(z|x) to approximate P(z|x), implemented by a NN(the encoder). Let’s relate $Q(z|x)$ and P(x) : </p>
+<script type="math/tex; mode=display">
+P(x)=\int_zQ(z|x)P(x)dz</script><p>Use the Bayes formula, we can derive </p>
+<script type="math/tex; mode=display">
+\begin{align}
+logP(x)&=\int_zQ(z|x)[logP(z)+logP(x|z)-logP(z|x)]\\
+&=\int_zQ(z|x)[logP(z)+logP(x|z)-log(Q(z|x))]dz+KL[Q(z|x)||P(z|x)]\\
+&\geq\int_zQ(z|x)[logP(z)+logP(x|z)-log(Q(z|x))]dz\\
+&=\mathbb{E}_{z\sim Q}[logP(x|z)]-KL[Q(z|x)||P(z)]
+\end{align}</script><p>Maximize P(x) is to maximize $\mathbb{E}_{z\sim Q}[logP(x|z)]$ while minimize $KL[Q(z|x)||P(z)]$ . </p>
+<p>Therefore, our Loss function(what we’d like to minimize) can be defined as follows:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathcal{L}&=KL[Q(z|x)||P(z)]-\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]\\
+&=KL[Q(z|x)||P(z)]+cross\_entropy[Q(z|x),P(x|z)]
+\end{align}</script><ul>
+<li><p>$KL[Q(z|x)||P(z)]$ is somewhat a \’distance\’ between Q(z|x) and P(z). </p>
 <p>Specifically, this term is computed as follows: </p>
-<p>See the next section <strong>Encoder&amp;Decoder</strong> , we assume that z|x ~ $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$ , while $\theta_1,\theta_2$ are the weights of the Encoder NN. And recall that our P(z) is $\mathcal{N}(0,1)$, i.e. the continuous Gaussian Mixture Model’s weights’ distribution. Thus, this term is a differentiable function of $\theta_1,\theta_2$ :<br>$$<br>0.5\sum[\mu_i^2+\exp(\sigma_i/2)-(\sigma_i+1)]<br>$$<br>$\mu_i$ is the output of a NN(parameterized by $\theta_{1}$) . $\sigma_i$ is the output of the other NN(parameterized by $\theta_2$).  To make $\sigma_i$ positive, we use $\exp(\sigma_i/2)$ for our practical variance. </p>
+<p>See the next section <strong>Encoder&amp;Decoder</strong> , we assume that z|x ~ $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$ , while $\theta_1,\theta_2$ are the weights of the Encoder NN. And recall that our P(z) is $\mathcal{N}(0,1)$, i.e. the continuous Gaussian Mixture Model’s weights’ distribution. Thus, this term is a differentiable function of $\theta_1,\theta_2$ :</p>
+<script type="math/tex; mode=display">
+0.5\sum[\mu_i^2+\exp(\sigma_i/2)-(\sigma_i+1)]</script><p>$\mu<em>i$ is the output of a NN(parameterized by $\theta</em>{1}$) . $\sigma_i$ is the output of the other NN(parameterized by $\theta_2$).  To make $\sigma_i$ positive, we use $\exp(\sigma_i/2)$ for our practical variance. </p>
 <p>Minimizing this term means roughly small $\mu_i$, and $\sigma_i$ close to 0. Note that we use $\exp(\sigma_i/2)$ for our variance, so actually we are making Q(z|x) close to $\mathcal{N}(0,1)$. </p>
 <p><img src="https://i.loli.net/2020/03/03/V9jxlkBtEzewDXF.png" alt="下载 2.png"></p>
 </li>
-<li><p>$\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]$ takes a form of an autoencoder. Because computing this expectation means to sample a z from Q(z|x) and compute logP(x|z). Q is &#39;encoding&#39; x into z, P is &#39;decoding&#39; z to reconstruct x. Higher expectation value means closer distance between the reconstructed $\hat{x}$ and the original $x$ in the high-dimensional space of x.</p>
+<li><p>$\mathbb{E}_{z\sim Q(z|x)}[logP(x|z)]$ takes a form of an autoencoder. Because computing this expectation means to sample a z from Q(z|x) and compute logP(x|z). Q is \’encoding\’ x into z, P is \’decoding\’ z to reconstruct x. Higher expectation value means closer distance between the reconstructed $\hat{x}$ and the original $x$ in the high-dimensional space of x.</p>
 <p>Specifically, this term is computed as follows: </p>
 <p>First, encode x into the latent space($\mu(x,\theta_1)$). Then, add a noise ($\sigma(x,\theta_2)$) to the latent representation, to derive z. Then use the decoder to reconstruct a $\hat{x}$. Finally, compute the loss between $\hat{x}$ and x. </p>
 </li>
 </ul>
 <h3 id="Encoder-amp-Decoder"><a href="#Encoder-amp-Decoder" class="headerlink" title="Encoder &amp; Decoder"></a>Encoder &amp; Decoder</h3><ul>
 <li><p><strong>The ENCODER</strong> : (the NN from input layer to hidden layer)</p>
-<p>Actually a function $Q(z|x)$ that aims to approximate the posterior $P(z|x)$,  in the sense of KL divergence. We assume that $z|x $ ~ $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$.  Of course, $\mu$ and $\sigma$ are learned from data, and $\theta$ is the weight matrix that define the function. In fact, $\mu$ is the original latent representation of x, but we want a &#39;noiser&#39; version: </p>
+<p>Actually a function $Q(z|x)$ that aims to approximate the posterior $P(z|x)$,  in the sense of KL divergence. We assume that $z|x $ ~ $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$.  Of course, $\mu$ and $\sigma$ are learned from data, and $\theta$ is the weight matrix that define the function. In fact, $\mu$ is the original latent representation of x, but we want a \’noiser\’ version: </p>
 <ul>
 <li><p>The noise_pluser (reparameterization trick) : </p>
 <p>What we want is a noise-plus version latent representation of x. However, directly sampling from $\mathcal{N}(\mu(x,\theta_1),\sigma(x,\theta_2))$ is not a good idea because that’s undifferentiable when backprop. So we sample an $\epsilon$ from $\mathcal{N}(0,I)$ , and derivate $\mu+\epsilon\cdot\sigma$. </p>

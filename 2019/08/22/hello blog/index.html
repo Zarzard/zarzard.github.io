@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  493
+                  502
                 </span>
               
 
@@ -420,7 +420,9 @@
 
       
         <h1 id="A-First-Level-Header"><a href="#A-First-Level-Header" class="headerlink" title="A First Level Header"></a>A First Level Header</h1><h2 id="A-Second-Level-Header"><a href="#A-Second-Level-Header" class="headerlink" title="A Second Level Header"></a>A Second Level Header</h2><a id="more"></a>
-
+<blockquote id="fn__^">
+<sup>_^</sup>. (嘻嘻,我是注释,不会被显示)<a href="#reffn__^" title="Jump back to footnote [_^] in the text."> &#8617;</a>
+</blockquote>
 <p>Now is the time for all good men to come to<br>the aid of their country. This is just a<br>regular paragraph.<br>The quick brown fox jumped over the lazy<br>dog’s back.</p>
 <p>仔细看下面两段之间空了一点，和上面两段对比</p>
 <p>Now is the time for all good men to come to<br>the aid of their country. This is just a<br>regular paragraph.</p>
@@ -429,15 +431,11 @@
 <p>This is a blockquote.</p>
 <blockquote>
 <p>嵌套中的嵌套：This is the second paragraph in the blockquote.</p>
-</blockquote>
-<blockquote>
 <blockquote>
 <p>套中套中套，以此类推</p>
 </blockquote>
 </blockquote>
-<h2 id="This-is-an-H2-in-a-blockquote"><a href="#This-is-an-H2-in-a-blockquote" class="headerlink" title="This is an H2 in a blockquote"></a>This is an H2 in a blockquote</h2></blockquote>
-<blockquote>
-<p>Some of these words <em>are emphasized</em>.<br>Some of these words <em>are emphasized also</em>.<br>Use two asterisks for <strong>strong emphasis</strong>.<br>Or, if you prefer, <strong>use two underscores instead</strong>.</p>
+<h2 id="This-is-an-H2-in-a-blockquote"><a href="#This-is-an-H2-in-a-blockquote" class="headerlink" title="This is an H2 in a blockquote"></a>This is an H2 in a blockquote</h2><p>Some of these words <em>are emphasized</em>.<br>Some of these words <em>are emphasized also</em>.<br>Use two asterisks for <strong>strong emphasis</strong>.<br>Or, if you prefer, <strong>use two underscores instead</strong>.</p>
 <ul>
 <li>Candy.</li>
 <li>Gum.</li>
@@ -471,7 +469,8 @@
 </ol>
 <ul>
 <li><p>A list item with a code block:</p>
-<pre><code>&lt;code goes here&gt;</code></pre></li>
+<pre><code>&lt;code goes here&gt;
+</code></pre></li>
 <li><p>A list item.<br>With multiple paragraphs.</p>
 </li>
 <li><p>Another item in the list.</p>
@@ -480,24 +479,24 @@
 <blockquote>
 <p>链接：<br>This is a <a href="http://zarzard.com/">link</a> to zarzard’s home page<br>This is <a href="http://example.com/" title="Title" target="_blank" rel="noopener">an example</a> inline link.<br>See my <a href="/相同服务器资源/qiongjufa.py">About</a> page for details.     </p>
 </blockquote>
-<p>I get 10 times more traffic from <a href="http://zarzard.com/">zarzard</a> <a href="zarzard.com" title="这是注释">1</a> than from <a href="http://search.yahoo.com/" title="Yahoo Search" target="_blank" rel="noopener">Yahoo</a> <a href="http://search.yahoo.com/" title="Yahoo Search" target="_blank" rel="noopener">2</a> or <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="noopener">MSN</a> <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="noopener">3</a>.</p>
+<p>I get 10 times more traffic from <a href="zarzard.com" title="这是注释">zarzard</a> than from <a href="http://search.yahoo.com/" title="Yahoo Search" target="_blank" rel="noopener">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="noopener">MSN</a>.</p>
 <p>I get 10 times more traffic from <a href="http://zarzard.com/">zarzard</a> than from<br><a href="zarzard.com" title="这是注释">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="noopener">MSN</a>.</p>
 <pre><code>class Empty(Exception):
-&apos;&apos;&apos;Error atempting to access an element from an empty container&apos;&apos;&apos;
+&#39;&#39;&#39;Error atempting to access an element from an empty container&#39;&#39;&#39;
     pass
 
 class ArrayStack(object):
-&apos;&apos;&apos;Using Python list as underlying storage&apos;&apos;&apos;
+&#39;&#39;&#39;Using Python list as underlying storage&#39;&#39;&#39;
     def __init__(self):
-    &apos;&apos;&apos;Create an empty stack&apos;&apos;&apos;
+    &#39;&#39;&#39;Create an empty stack&#39;&#39;&#39;
         self._data = [ ]
 
     def __len__(self):
-    &apos;&apos;&apos;Return the number of elements in the stack&apos;&apos;&apos;
+    &#39;&#39;&#39;Return the number of elements in the stack&#39;&#39;&#39;
     return len(self._data)
 
 def is_empty(self):
-    &apos;&apos;&apos;Return True if the stack is empty&apos;&apos;&apos;
+    &#39;&#39;&#39;Return True if the stack is empty&#39;&#39;&#39;
     return len(self._data) == 0
 
 def push(self, e):
@@ -505,20 +504,19 @@ def push(self, e):
 
 def pop(self):
     if self.is_empty():
-        raise Empty(&apos;Stack is empty&apos;)  # 相当于raise Exception(&apos;Stack...&apos;)
+        raise Empty(&#39;Stack is empty&#39;)  # 相当于raise Exception(&#39;Stack...&#39;)
     return self._data.pop()
 
 def top(self):
     if self.is_empty():
-        raise Empty(&apos;Stack is empty&apos;)
-    return self._data[-1]</code></pre><hr>
-<hr>
-<hr>
-<hr>
+        raise Empty(&#39;Stack is empty&#39;)
+    return self._data[-1]
+</code></pre><hr>
+<h2 id><a href="#" class="headerlink" title="  *"></a><em> </em> *</h2><hr>
 <p>Use the <code>printf()</code> function.</p>
 <p><code>There is a literal backtick (`) here.</code></p>
-<p>A single backtick in a code span: <code>`</code></p>
-<p>A backtick-delimited string in a code span: <code>`foo`</code></p>
+<p>A single backtick in a code span: <code>` </code></p>
+<p>A backtick-delimited string in a code span: <code>`foo` </code></p>
 <p>Please don’t use any <code>&lt;blink&gt;</code> tags.</p>
 <p><code>&amp;#8212;</code> is the decimal-encoded equivalent of <code>&amp;mdash;</code>.</p>
 <p><img src="http://wx4.sinaimg.cn/mw690/007WQSWKgy1g60ospmmfsj31hc0u0qv5.jpg" alt="图片404"></p>
@@ -705,7 +703,7 @@ def top(self):
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-First-Level-Header"><span class="nav-number">1.</span> <span class="nav-text">A First Level Header</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Second-Level-Header"><span class="nav-number">1.1.</span> <span class="nav-text">A Second Level Header</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Header-1"><span class="nav-number">2.</span> <span class="nav-text">Header 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Header-2"><span class="nav-number">2.1.</span> <span class="nav-text">Header 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Header-3"><span class="nav-number">2.1.1.</span> <span class="nav-text">Header 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header-4"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Header 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Header-5"><span class="nav-number">2.1.1.1.1.</span> <span class="nav-text">Header 5</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Header-6"><span class="nav-number">2.1.1.1.1.1.</span> <span class="nav-text">Header 6</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#This-is-an-H2-in-a-blockquote"><span class="nav-number">2.2.</span> <span class="nav-text">This is an H2 in a blockquote</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-First-Level-Header"><span class="nav-number">1.</span> <span class="nav-text">A First Level Header</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Second-Level-Header"><span class="nav-number">1.1.</span> <span class="nav-text">A Second Level Header</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Header-1"><span class="nav-number">2.</span> <span class="nav-text">Header 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Header-2"><span class="nav-number">2.1.</span> <span class="nav-text">Header 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Header-3"><span class="nav-number">2.1.1.</span> <span class="nav-text">Header 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header-4"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Header 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Header-5"><span class="nav-number">2.1.1.1.1.</span> <span class="nav-text">Header 5</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Header-6"><span class="nav-number">2.1.1.1.1.1.</span> <span class="nav-text">Header 6</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#This-is-an-H2-in-a-blockquote"><span class="nav-number">2.2.</span> <span class="nav-text">This is an H2 in a blockquote</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.3.</span> <span class="nav-text">  *</span></a></li></ol></li></ol></div>
             
 
           </div>

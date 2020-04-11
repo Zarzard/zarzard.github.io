@@ -424,14 +424,12 @@
 
       
         <h1 id="RNN-Recurrent-Neural-Network-学习笔记"><a href="#RNN-Recurrent-Neural-Network-学习笔记" class="headerlink" title="RNN(Recurrent Neural Network) 学习笔记"></a>RNN(Recurrent Neural Network) 学习笔记</h1><a id="more"></a> 
-
 <h3 id="怎么看一个-tensor-是-？-？…-？"><a href="#怎么看一个-tensor-是-？-？…-？" class="headerlink" title="怎么看一个 tensor 是 ？*？…*？"></a>怎么看一个 tensor 是 ？*？…*？</h3><ul>
 <li>首先确定总共多少维：看第一个数字前面有多少 ‘ [ ‘ 即可</li>
 <li>其次确定每个维度的维数：规律是：从里到外数。第一个 ‘ [ ] ‘ 里面总共有多少个数，第 -1 维（即倒数第一维）就是多少；往外看一个 ‘ [ ] ‘，数里面的 ‘ [ ] ‘ 数量，则为倒数第二维维数；以此类推。</li>
 </ul>
 <p>例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">t = torch.tensor([[[[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">                   [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">                  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">                  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">                  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]]]])</span><br><span class="line">t.shape</span><br><span class="line"></span><br><span class="line">&gt;&gt;torch.Size([<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-
 <h2 id="其动机"><a href="#其动机" class="headerlink" title="其动机"></a>其动机</h2><h2 id="其做法"><a href="#其做法" class="headerlink" title="其做法"></a>其做法</h2><h2 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h2><h2 id="其实例"><a href="#其实例" class="headerlink" title="其实例"></a>其实例</h2>
       
     </div>
