@@ -94,10 +94,19 @@
 <meta property="og:site_name" content="Zarzard&#39;s backyard">
 <meta property="og:description" content="RNN(Recurrent Neural Network) 学习笔记">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-10T14:53:21.907Z">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/vmuH9BxX7TsYkCf.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/4D1YROoT2f3Atmw.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/tl6OIe7CHQU1u5V.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/KXRpuj1HC32sl8v.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/PdBO3kCINLXAMro.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/8QxYyFUJpKEOsM5.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/R9YrneKMaAJlBCL.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/12/nD16oh9CIQLuZGe.png">
+<meta property="og:updated_time" content="2020-04-12T03:24:41.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RNN学习笔记">
 <meta name="twitter:description" content="RNN(Recurrent Neural Network) 学习笔记">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/12/vmuH9BxX7TsYkCf.png">
 
 
 
@@ -396,7 +405,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  158
+                  959
                 </span>
               
 
@@ -422,13 +431,46 @@
 
       
         <h1 id="RNN-Recurrent-Neural-Network-学习笔记"><a href="#RNN-Recurrent-Neural-Network-学习笔记" class="headerlink" title="RNN(Recurrent Neural Network) 学习笔记"></a>RNN(Recurrent Neural Network) 学习笔记</h1><a id="more"></a> 
-<h3 id="怎么看一个-tensor-是-？-？…-？"><a href="#怎么看一个-tensor-是-？-？…-？" class="headerlink" title="怎么看一个 tensor 是 ？*？…*？"></a>怎么看一个 tensor 是 ？*？…*？</h3><ul>
+<h2 id="其动机"><a href="#其动机" class="headerlink" title="其动机"></a>其动机</h2><p> Sequence Learning</p>
+<p>比如说，输入一个包含地点的句子，让机器考虑这个地点到底是中国的还是美国的，那么就必然要考虑到前后的词的语义。而我们训练的样本单位还是一个一个的词，那么如何才能让机器学会考虑一串样本的前后关系呢？</p>
+<h2 id="其做法"><a href="#其做法" class="headerlink" title="其做法"></a>其做法</h2><h3 id="naive-RNN"><a href="#naive-RNN" class="headerlink" title="naive RNN"></a>naive RNN</h3><p><img src="https://i.loli.net/2020/04/12/vmuH9BxX7TsYkCf.png" alt="rnn1.png"></p>
+<p>显然，sequence 中的单位的顺序对 rnn 的输出会有影响</p>
+<p><img src="https://i.loli.net/2020/04/12/4D1YROoT2f3Atmw.png" alt="rnn2.png"></p>
+<p><strong>同一个 nn</strong> 在三个不同时间点</p>
+<h3 id="Bidirectional-RNN"><a href="#Bidirectional-RNN" class="headerlink" title="Bidirectional RNN"></a>Bidirectional RNN</h3><p><img src="https://i.loli.net/2020/04/12/tl6OIe7CHQU1u5V.png" alt="rnn3.png"></p>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><h4 id="其动机-1"><a href="#其动机-1" class="headerlink" title="其动机"></a>其动机</h4><p>前面的 naive RNN 会出现记忆时间过短的问题，一个序列中的一个样本影响范围有限，比如预测“纽约的华人街里的粤菜馆”在中国还是美国的时候可能只看到“华人”就预测在中国，没有看到前面的纽约。</p>
+<h4 id="其做法-1"><a href="#其做法-1" class="headerlink" title="其做法"></a>其做法</h4><p><img src="https://i.loli.net/2020/04/12/KXRpuj1HC32sl8v.png" alt="rnn5.png"></p>
+<h4 id="其实例"><a href="#其实例" class="headerlink" title="其实例"></a>其实例</h4><p><img src="https://i.loli.net/2020/04/12/PdBO3kCINLXAMro.png" alt="rnn6.png"></p>
+<p>与普通的 nn 的相关性：每一个 lstm 都看成一个 neuron 就好了（4个 input 其实是由同一个输入产生的）</p>
+<p><img src="https://i.loli.net/2020/04/12/8QxYyFUJpKEOsM5.png" alt="rnn7.png"></p>
+<p>上图中，设 lstm 层有 h 个 cell，则 t 时刻这个层的输入 $x^t$ 会由 4 组参数得到 4 个 gate 的输入，即 $z,z^i,z^f,z^o$。每一个都是一个维数为 h 的向量（即每个 cell 的每个 gate 都输入一个 scalar）。而其实每个 gate 是可以像普通 nn 一样一起运算的。</p>
+<h4 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h4><h5 id="handle-掉-naive-RNN-中梯度消失的问题"><a href="#handle-掉-naive-RNN-中梯度消失的问题" class="headerlink" title="handle 掉 naive RNN 中梯度消失的问题"></a>handle 掉 naive RNN 中梯度消失的问题</h5><p>在 naive rnn 中，每个时间点 memory 里面的值都会被 input 直接替换掉（如上图，相当于 w 连乘自己很多次）；而在 lstm 中，memory 的值</p>
+<script type="math/tex; mode=display">
+c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>是由 input 与上一个时间点的 memory 的值<strong>加</strong>起来的（除非forget gate 自己学习到要把值洗掉）</p>
+<p>虽然 lstm 还是可能会出现梯度爆炸（forget gate 一直打开，导致 $\theta_f$ 连乘自己很多次），但由于采用加法，就算 forget gate 一直关闭，即 $f(z_f)$ 一直为 0，也不会使得 $\theta_i$ 连乘很多次而发生梯度消失。</p>
+<p>这也是 lstm 为什么 “long short-term” 。因为如果 input gate 的输出 $f(z_i)$ 一直接近 0，那么 memory 中的值 c 就会一直变化不大，即保存较长时间。“长的短期记忆”</p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p><img src="https://i.loli.net/2020/04/12/R9YrneKMaAJlBCL.png" alt="rnn8.png"></p>
+<p>梯度时而爆炸（grad $\rightarrow\infty$，参数变化一点点 output 变化很大），时而消失（grad $\rightarrow$ 0，参数变化很大 output 变化一点点）</p>
+<h3 id="应对方法"><a href="#应对方法" class="headerlink" title="应对方法"></a>应对方法</h3><h4 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h4><p>应对：当 grad 大于某个 threshold 时就设 grad 为那个 threshold。</p>
+<h4 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h4><p>应对：使用 lstm 或 gru（相邻时间点的 memory 不是乘而是加）</p>
+<h3 id="为什么会出现这个悬崖呢？"><a href="#为什么会出现这个悬崖呢？" class="headerlink" title="为什么会出现这个悬崖呢？"></a>为什么会出现这个悬崖呢？</h3><p>看一个 toy example，参数变化很小，但 output 变化很大</p>
+<script type="math/tex; mode=display">
+\frac{\partial[y-f_{\theta}(x)]}{\partial\theta}|_{\theta=\theta_0}</script><p><img src="https://i.loli.net/2020/04/12/nD16oh9CIQLuZGe.png" alt="rnn9.png"></p>
+<p>这里</p>
+<script type="math/tex; mode=display">
+\frac{\partial[y-f_{\theta}(x)]}{\partial\theta}|_{\theta=\theta_0}=999w^{998}|_{w=w_0}</script><p>有可能 </p>
+<ol>
+<li>w 变化一点，grad 就会变化很大</li>
+<li>w 变化很大，grad 不怎么变</li>
+</ol>
+<p>这也是 rnn 本身的特点决定的：Sequence 越长，同一套参数反复训练的次数越多，与普通 nn 不同的是，这些参数随着时间的增长是会连乘积累起来的</p>
+<h2 id="附：怎么看一个-tensor-是-？-？…-？"><a href="#附：怎么看一个-tensor-是-？-？…-？" class="headerlink" title="附：怎么看一个 tensor 是 ？*？…*？"></a>附：怎么看一个 tensor 是 ？*？…*？</h2><ul>
 <li>首先确定总共多少维：看第一个数字前面有多少 ‘ [ ‘ 即可</li>
 <li>其次确定每个维度的维数：规律是：从里到外数。第一个 ‘ [ ] ‘ 里面总共有多少个数，第 -1 维（即倒数第一维）就是多少；往外看一个 ‘ [ ] ‘，数里面的 ‘ [ ] ‘ 数量，则为倒数第二维维数；以此类推。</li>
 </ul>
 <p>例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">t = torch.tensor([[[[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">                   [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">                  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">                  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]],</span><br><span class="line">                 [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">                  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]]]])</span><br><span class="line">t.shape</span><br><span class="line"></span><br><span class="line">&gt;&gt;torch.Size([<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="其动机"><a href="#其动机" class="headerlink" title="其动机"></a>其动机</h2><h2 id="其做法"><a href="#其做法" class="headerlink" title="其做法"></a>其做法</h2><h2 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h2><h2 id="其实例"><a href="#其实例" class="headerlink" title="其实例"></a>其实例</h2>
+
       
     </div>
     
@@ -609,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN-Recurrent-Neural-Network-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">RNN(Recurrent Neural Network) 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么看一个-tensor-是-？-？…-？"><span class="nav-number">1.0.1.</span> <span class="nav-text">怎么看一个 tensor 是 ？*？…*？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其动机"><span class="nav-number">1.1.</span> <span class="nav-text">其动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其做法"><span class="nav-number">1.2.</span> <span class="nav-text">其做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其之所以然"><span class="nav-number">1.3.</span> <span class="nav-text">其之所以然</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其实例"><span class="nav-number">1.4.</span> <span class="nav-text">其实例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN-Recurrent-Neural-Network-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">RNN(Recurrent Neural Network) 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其动机"><span class="nav-number">1.1.</span> <span class="nav-text">其动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其做法"><span class="nav-number">1.2.</span> <span class="nav-text">其做法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#naive-RNN"><span class="nav-number">1.2.1.</span> <span class="nav-text">naive RNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bidirectional-RNN"><span class="nav-number">1.2.2.</span> <span class="nav-text">Bidirectional RNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM"><span class="nav-number">1.2.3.</span> <span class="nav-text">LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#其动机-1"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">其动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其做法-1"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">其做法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其实例"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">其实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其之所以然"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">其之所以然</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#handle-掉-naive-RNN-中梯度消失的问题"><span class="nav-number">1.2.3.4.1.</span> <span class="nav-text">handle 掉 naive RNN 中梯度消失的问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training"><span class="nav-number">1.3.</span> <span class="nav-text">Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应对方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">应对方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度爆炸"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">梯度爆炸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度消失"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">梯度消失</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么会出现这个悬崖呢？"><span class="nav-number">1.3.3.</span> <span class="nav-text">为什么会出现这个悬崖呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附：怎么看一个-tensor-是-？-？…-？"><span class="nav-number">1.4.</span> <span class="nav-text">附：怎么看一个 tensor 是 ？*？…*？</span></a></li></ol></li></ol></div>
             
 
           </div>
