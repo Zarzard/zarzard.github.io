@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/12/8QxYyFUJpKEOsM5.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/12/R9YrneKMaAJlBCL.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/12/nD16oh9CIQLuZGe.png">
-<meta property="og:updated_time" content="2020-04-12T03:24:41.169Z">
+<meta property="og:updated_time" content="2020-04-22T12:48:13.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RNN学习笔记">
 <meta name="twitter:description" content="RNN(Recurrent Neural Network) 学习笔记">
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  959
+                  1.1k
                 </span>
               
 
@@ -438,17 +438,18 @@
 <p><img src="https://i.loli.net/2020/04/12/4D1YROoT2f3Atmw.png" alt="rnn2.png"></p>
 <p><strong>同一个 nn</strong> 在三个不同时间点</p>
 <h3 id="Bidirectional-RNN"><a href="#Bidirectional-RNN" class="headerlink" title="Bidirectional RNN"></a>Bidirectional RNN</h3><p><img src="https://i.loli.net/2020/04/12/tl6OIe7CHQU1u5V.png" alt="rnn3.png"></p>
-<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><h4 id="其动机-1"><a href="#其动机-1" class="headerlink" title="其动机"></a>其动机</h4><p>前面的 naive RNN 会出现记忆时间过短的问题，一个序列中的一个样本影响范围有限，比如预测“纽约的华人街里的粤菜馆”在中国还是美国的时候可能只看到“华人”就预测在中国，没有看到前面的纽约。</p>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><h4 id="其动机-1"><a href="#其动机-1" class="headerlink" title="其动机"></a>其动机</h4><p>前面的 naive RNN 会出现记忆时间过短的问题，一个序列中的一个样本影响范围有限，比如预测“纽约的华人街里的粤菜馆”在中国还是美国的时候可能只看到“粤菜”就预测在中国，没有看到前面的“纽约”。</p>
 <h4 id="其做法-1"><a href="#其做法-1" class="headerlink" title="其做法"></a>其做法</h4><p><img src="https://i.loli.net/2020/04/12/KXRpuj1HC32sl8v.png" alt="rnn5.png"></p>
 <h4 id="其实例"><a href="#其实例" class="headerlink" title="其实例"></a>其实例</h4><p><img src="https://i.loli.net/2020/04/12/PdBO3kCINLXAMro.png" alt="rnn6.png"></p>
 <p>与普通的 nn 的相关性：每一个 lstm 都看成一个 neuron 就好了（4个 input 其实是由同一个输入产生的）</p>
 <p><img src="https://i.loli.net/2020/04/12/8QxYyFUJpKEOsM5.png" alt="rnn7.png"></p>
 <p>上图中，设 lstm 层有 h 个 cell，则 t 时刻这个层的输入 $x^t$ 会由 4 组参数得到 4 个 gate 的输入，即 $z,z^i,z^f,z^o$。每一个都是一个维数为 h 的向量（即每个 cell 的每个 gate 都输入一个 scalar）。而其实每个 gate 是可以像普通 nn 一样一起运算的。</p>
-<h4 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h4><h5 id="handle-掉-naive-RNN-中梯度消失的问题"><a href="#handle-掉-naive-RNN-中梯度消失的问题" class="headerlink" title="handle 掉 naive RNN 中梯度消失的问题"></a>handle 掉 naive RNN 中梯度消失的问题</h5><p>在 naive rnn 中，每个时间点 memory 里面的值都会被 input 直接替换掉（如上图，相当于 w 连乘自己很多次）；而在 lstm 中，memory 的值</p>
+<h4 id="其之所以然"><a href="#其之所以然" class="headerlink" title="其之所以然"></a>其之所以然</h4><h5 id="handle-掉-naive-RNN-中梯度消失的问题"><a href="#handle-掉-naive-RNN-中梯度消失的问题" class="headerlink" title="handle 掉 naive RNN 中梯度消失的问题"></a>handle 掉 naive RNN 中梯度消失的问题</h5><p>在 naive rnn 中，每个时间点 memory 里面的值都会被 input 直接替换掉（如上图，相当于 w 连乘自己很多次）；而在 lstm 中，memory 的值，是由 input 与上一个时间点的 memory 的值<strong>加</strong>起来的（除非forget gate 自己学习到要把值洗掉）：</p>
 <script type="math/tex; mode=display">
-c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>是由 input 与上一个时间点的 memory 的值<strong>加</strong>起来的（除非forget gate 自己学习到要把值洗掉）</p>
-<p>虽然 lstm 还是可能会出现梯度爆炸（forget gate 一直打开，导致 $\theta_f$ 连乘自己很多次），但由于采用加法，就算 forget gate 一直关闭，即 $f(z_f)$ 一直为 0，也不会使得 $\theta_i$ 连乘很多次而发生梯度消失。</p>
-<p>这也是 lstm 为什么 “long short-term” 。因为如果 input gate 的输出 $f(z_i)$ 一直接近 0，那么 memory 中的值 c 就会一直变化不大，即保存较长时间。“长的短期记忆”</p>
+c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>（其中，$f_{\theta_f}(z_f)=\sigma(W_fx+b_f),f_{\theta_i}(z_i)$ 同理，也是一层output为 scalar 的 linear nn 复合上激活函数）</p>
+<p>虽然 lstm 还是可能会出现梯度爆炸（forget gate 一直打开，导致 $\theta_f$ 连乘自己很多次），但由于对 input 采用加法，就算 forget gate 一直打开，使得 $\theta_f$ 连乘自己很多次，但只要把 bias 设大一点，就不会发生梯度消失。</p>
+<p>由于不会梯度消失，但仍可能梯度爆炸，所以训练 lstm 一般使用较小的步长。</p>
+<p>这也是 lstm 为什么 “long short-term” 。因为如果 input gate 的输出 $f(z_i)$ 一直接近 0，那么 memory 中的值 c 就会一直变化不大，即保存较长时间。“长的短期记忆”。而让这个 short-term memory 保存多长时间，是可以被参数控制的，也就是：可以学习要不要“遗忘”。</p>
 <h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p><img src="https://i.loli.net/2020/04/12/R9YrneKMaAJlBCL.png" alt="rnn8.png"></p>
 <p>梯度时而爆炸（grad $\rightarrow\infty$，参数变化一点点 output 变化很大），时而消失（grad $\rightarrow$ 0，参数变化很大 output 变化一点点）</p>
 <h3 id="应对方法"><a href="#应对方法" class="headerlink" title="应对方法"></a>应对方法</h3><h4 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h4><p>应对：当 grad 大于某个 threshold 时就设 grad 为那个 threshold。</p>
@@ -586,7 +587,7 @@ c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>是由 input 与
               <img class="site-author-image" itemprop="image" src="https://i.loli.net/2019/10/06/KaNVABQLZibsXG3.jpg" alt="Zarzard Wu">
             
               <p class="site-author-name" itemprop="name">Zarzard Wu</p>
-              <p class="site-description motion-element" itemprop="description">Zarzard的个人博客，记录一些胡思乱想，做点学习笔记</p>
+              <p class="site-description motion-element" itemprop="description">Zarzard's Blog</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -596,7 +597,7 @@ c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>是由 input 与
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -618,7 +619,7 @@ c_{t}=c_{t-1}f_{\theta_f}(z_f)+g(z)f_{\theta_i}(z_i)</script><p>是由 input 与
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
